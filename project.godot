@@ -215,6 +215,7 @@ camera_zoom_out={
 2d_physics/layer_2="World_Phys"
 2d_physics/layer_3="Ship"
 2d_physics/layer_4="Bullet"
+2d_physics/layer_5="World_Special (Gates, etc)"
 
 [physics]
 

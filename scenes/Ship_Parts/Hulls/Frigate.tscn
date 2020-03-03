@@ -14,6 +14,8 @@
 radius = 43.9663
 
 [node name="Frigate" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 15
 mass = 100.0
 linear_damp = 0.1
 angular_damp = 4.0
@@ -41,12 +43,12 @@ Parent = NodePath("../..")
 [node name="Turret" parent="frigate" instance=ExtResource( 7 )]
 position = Vector2( 20.5, 18.5 )
 Parent = NodePath("../..")
-MaxRotationSpeed = 0.393
+MaxRotationSpeed = 1.571
 
 [node name="Turret2" parent="frigate" instance=ExtResource( 7 )]
 position = Vector2( -20.5, 18.5 )
 Parent = NodePath("../..")
-MaxRotationSpeed = 0.393
+MaxRotationSpeed = 1.571
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
