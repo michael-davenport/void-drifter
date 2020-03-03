@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://raw/32x32cir.png" type="Texture" id=1]
+[ext_resource path="res://raw/frigate.png" type="Texture" id=2]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=3]
+[ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=4]
+[ext_resource path="res://scripts/game/parts/part_shield.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_PlasmaCannon_MK2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Turret_Base_L.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 43.9663
+
+[node name="Frigate" type="RigidBody2D"]
+mass = 100.0
+linear_damp = 0.1
+angular_damp = 4.0
+script = ExtResource( 4 )
+DamageHandler = NodePath("part_dmghandler")
+EnginePaths = [ NodePath("frigate/RedThruster") ]
+WeaponPaths = [ NodePath("frigate/HeavyPlasma"), NodePath("frigate/Turret"), NodePath("frigate/Turret2") ]
+TorqueForce = 150000.0
+Explod = ExtResource( 9 )
+
+[node name="frigate" type="Sprite" parent="."]
+position = Vector2( 7.88898, 0 )
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="RedThruster" parent="frigate" instance=ExtResource( 8 )]
+position = Vector2( 1.24437e-06, 28.468 )
+z_index = -1
+Parent = NodePath("../..")
+
+[node name="HeavyPlasma" parent="frigate" instance=ExtResource( 6 )]
+position = Vector2( -2.75871e-07, -6.31119 )
+Parent = NodePath("../..")
+
+[node name="Turret" parent="frigate" instance=ExtResource( 7 )]
+position = Vector2( 20.5, 18.5 )
+Parent = NodePath("../..")
+MaxRotationSpeed = 0.393
+
+[node name="Turret2" parent="frigate" instance=ExtResource( 7 )]
+position = Vector2( -20.5, 18.5 )
+Parent = NodePath("../..")
+MaxRotationSpeed = 0.393
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -22.9121, 26.7745, 22.844, 26.9323, 22.6862, 16.0455, 32.153, 9.89205, 31.9952, 3.73865, 17.3217, 0.109711, 32.4686, -4.62368, 32.6263, -11.0927, 23.9484, -16.6149, 23.1596, -27.0284, -23.2277, -26.7128, -23.701, -17.4038, -20.5454, -3.99256, -27.33, 0.267487, -20.5454, 3.42309, -22.7543, 18.2544 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 3 )
+Health = 20.0
+Parent = NodePath("..")
+ShieldEmitter = NodePath("../part_shield")
+
+[node name="part_shield" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+script = ExtResource( 5 )
+MaxHP = 20.0
+RegenRate = 0.1
+DownTime = 6.0
+Visual = NodePath("vis")
+
+[node name="vis" type="Sprite" parent="part_shield"]
+modulate = Color( 1, 0.352941, 0, 0.14902 )
+position = Vector2( 0.0968521, 0.0968532 )
+rotation = -1.5708
+scale = Vector2( 2.72823, 2.72823 )
+texture = ExtResource( 1 )

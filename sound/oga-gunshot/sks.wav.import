@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sks.wav-e0f007f504d5196d11c8811eea0ee789.sample"
+
+[deps]
+
+source_file="res://sound/oga-gunshot/sks.wav"
+dest_files=[ "res://.import/sks.wav-e0f007f504d5196d11c8811eea0ee789.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

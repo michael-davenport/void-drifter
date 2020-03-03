@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/game/parts/part_shield.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 21.8925
+
+[node name="ShieldEmitter" type="CollisionShape2D"]
+shape = SubResource( 1 )
+script = ExtResource( 1 )

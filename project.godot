@@ -1,0 +1,228 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "BulletBase",
+"language": "GDScript",
+"path": "res://scripts/bullet_base.gd"
+}, {
+"base": "ShipObj",
+"class": "EnemyShip",
+"language": "GDScript",
+"path": "res://scenes/Ships/EnemyShip.gd"
+}, {
+"base": "ShipObj",
+"class": "Playership",
+"language": "GDScript",
+"path": "res://scripts/obj_plyShip.gd"
+}, {
+"base": "ShipBase",
+"class": "PlayershipOld",
+"language": "GDScript",
+"path": "res://scenes/Ships/Playership.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "ShipBase",
+"language": "GDScript",
+"path": "res://scripts/ship_base.gd"
+}, {
+"base": "RigidBody2D",
+"class": "ShipObj",
+"language": "GDScript",
+"path": "res://scripts/obj_ship.gd"
+}, {
+"base": "Node2D",
+"class": "WeaponBase",
+"language": "GDScript",
+"path": "res://scripts/weapon_base.gd"
+}, {
+"base": "Node",
+"class": "gp_AIController",
+"language": "GDScript",
+"path": "res://scripts/gp_aiController.gd"
+}, {
+"base": "Node",
+"class": "gp_AIDirector",
+"language": "GDScript",
+"path": "res://scripts/gp_aiDirector.gd"
+}, {
+"base": "Node",
+"class": "gp_Armor",
+"language": "GDScript",
+"path": "res://scripts/gp_armor.gd"
+}, {
+"base": "Node",
+"class": "gp_Damage",
+"language": "GDScript",
+"path": "res://scripts/gp_damage.gd"
+}, {
+"base": "Node",
+"class": "gp_Health",
+"language": "GDScript",
+"path": "res://scripts/gp_health.gd"
+}, {
+"base": "Node",
+"class": "gp_Shield",
+"language": "GDScript",
+"path": "res://scripts/gp_shield.gd"
+}, {
+"base": "AnimatedSprite",
+"class": "gp_spriteScene",
+"language": "GDScript",
+"path": "res://scripts/gp_spritescene.gd"
+}, {
+"base": "Node2D",
+"class": "gp_starSpawner",
+"language": "GDScript",
+"path": "res://scripts/gp_starSpawner.gd"
+}, {
+"base": "Node",
+"class": "mngr_rockdirector",
+"language": "GDScript",
+"path": "res://scripts/game/mngr/mngr_rockdirector.gd"
+}, {
+"base": "ShipObj",
+"class": "obj_EnemyShip",
+"language": "GDScript",
+"path": "res://scripts/obj_enemyShip.gd"
+}, {
+"base": "RigidBody2D",
+"class": "object_bullet",
+"language": "GDScript",
+"path": "res://scripts/game/objects/bullet.gd"
+}, {
+"base": "Node2D",
+"class": "part_Thruster",
+"language": "GDScript",
+"path": "res://scripts/obj_thruster.gd"
+}, {
+"base": "Node2D",
+"class": "part_dmghandler",
+"language": "GDScript",
+"path": "res://scripts/game/parts/part_dmghandler.gd"
+}, {
+"base": "Node2D",
+"class": "part_gun",
+"language": "GDScript",
+"path": "res://scripts/game/parts/part_gun.gd"
+}, {
+"base": "CollisionShape2D",
+"class": "part_shield",
+"language": "GDScript",
+"path": "res://scripts/game/parts/part_shield.gd"
+}, {
+"base": "Node2D",
+"class": "part_turret",
+"language": "GDScript",
+"path": "res://scripts/game/parts/part_turret.gd"
+} ]
+_global_script_class_icons={
+"BulletBase": "",
+"EnemyShip": "",
+"Playership": "",
+"PlayershipOld": "",
+"ShipBase": "",
+"ShipObj": "",
+"WeaponBase": "",
+"gp_AIController": "",
+"gp_AIDirector": "",
+"gp_Armor": "",
+"gp_Damage": "",
+"gp_Health": "",
+"gp_Shield": "",
+"gp_spriteScene": "",
+"gp_starSpawner": "",
+"mngr_rockdirector": "",
+"obj_EnemyShip": "",
+"object_bullet": "",
+"part_Thruster": "",
+"part_dmghandler": "",
+"part_gun": "",
+"part_shield": "",
+"part_turret": ""
+}
+
+[application]
+
+config/name="Void Drifter"
+run/main_scene="res://scenes/World.tscn"
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+config/icon="res://icon.png"
+
+[autoload]
+
+util="*res://scripts/util.gd"
+data="*res://data.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+window/size/fullscreen=true
+window/stretch/mode="2d"
+
+[input]
+
+Thrust_Up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Thrust_Down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Thrust_Left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Thrust_Right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Pew={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+camera_zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+camera_zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="World_Static"
+2d_physics/layer_2="World_Phys"
+2d_physics/layer_3="Ship"
+2d_physics/layer_4="Bullet"
+
+[physics]
+
+2d/default_gravity=0
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0
+
+[rendering]
+
+environment/default_clear_color=Color( 0, 0, 0, 1 )
+environment/default_environment="res://default_env.tres"

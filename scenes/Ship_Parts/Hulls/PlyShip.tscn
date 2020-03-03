@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scripts/obj_plyShip.gd" type="Script" id=1]
+[ext_resource path="res://raw/playership.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Ship_Parts/Engines/PlyThrust.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sound/wepon/blue-2.wav" type="AudioStream" id=6]
+[ext_resource path="res://sound/wepon/blue-1.wav" type="AudioStream" id=7]
+[ext_resource path="res://sound/wepon/blue-3.wav" type="AudioStream" id=8]
+[ext_resource path="res://scenes/FX/HitBlu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Ship_Parts/Shield/ShieldEmitter.tscn" type="PackedScene" id=13]
+[ext_resource path="res://raw/32x32cir.png" type="Texture" id=14]
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.396, 14.172 )
+
+[node name="PlyShip" type="RigidBody2D"]
+mass = 10.0
+physics_material_override = SubResource( 1 )
+gravity_scale = 0.0
+can_sleep = false
+linear_damp = 0.5
+angular_damp = 30.0
+script = ExtResource( 1 )
+DamageHandler = NodePath("part_dmghandler")
+EnginePaths = [ NodePath("Sprite/PlyThrust"), NodePath("Sprite/PlyThrust2") ]
+WeaponPaths = [ NodePath("Sprite/CombatLaserMK1") ]
+TorqueForce = 1.5e+06
+MaxAngularVelocity = 6.283
+Explod = ExtResource( 11 )
+dontask = ExtResource( 10 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="PlyThrust" parent="Sprite" instance=ExtResource( 3 )]
+position = Vector2( -12.5, 4 )
+Parent = NodePath("../..")
+Force = Vector2( 50, 25 )
+
+[node name="PlyThrust2" parent="Sprite" instance=ExtResource( 3 )]
+position = Vector2( 12.5, 4 )
+Parent = NodePath("../..")
+Force = Vector2( 50, 25 )
+
+[node name="SoundTree" type="Node2D" parent="Sprite"]
+
+[node name="GunSound" type="Node2D" parent="Sprite/SoundTree"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sprite/SoundTree/GunSound"]
+stream = ExtResource( 7 )
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Sprite/SoundTree/GunSound"]
+stream = ExtResource( 6 )
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="Sprite/SoundTree/GunSound"]
+stream = ExtResource( 8 )
+
+[node name="CombatLaserMK1" parent="Sprite" instance=ExtResource( 4 )]
+position = Vector2( -2.51982e-05, -6.96085 )
+Parent = NodePath("../..")
+MuzzleSprite = NodePath("../CombatLaserMK1/AnimatedSprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.387421, -0.000302196 )
+shape = SubResource( 2 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 12 )
+Health = 4.0
+Parent = NodePath("..")
+ShieldEmitter = NodePath("../ShieldEmitter")
+TF = 1.0
+
+[node name="ShieldEmitter" parent="." instance=ExtResource( 13 )]
+MaxHP = 2.0
+Visual = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite" parent="ShieldEmitter"]
+modulate = Color( 0, 0.694118, 1, 0.0588235 )
+scale = Vector2( 1.355, 1.355 )
+texture = ExtResource( 14 )
+
+[editable path="Sprite/PlyThrust"]
+
+[editable path="Sprite/PlyThrust2"]

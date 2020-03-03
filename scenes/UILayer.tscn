@@ -1,0 +1,87 @@
+[gd_scene format=2]
+
+[node name="UILayer" type="MarginContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -111.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 91.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1240.0
+margin_bottom = 33.0
+size_flags_vertical = 3
+
+[node name="l_shield" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_top = 9.0
+margin_right = 410.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "SHIELD"
+align = 1
+
+[node name="l_armor" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 414.0
+margin_top = 9.0
+margin_right = 824.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "ARMOR"
+align = 1
+
+[node name="l_gun" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 828.0
+margin_top = 9.0
+margin_right = 1240.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "WEAPON"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 37.0
+margin_right = 1240.0
+margin_bottom = 71.0
+size_flags_vertical = 3
+
+[node name="pb_shield" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+margin_right = 410.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="pb_armor" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+margin_left = 414.0
+margin_right = 824.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="pb_gun" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+margin_left = 828.0
+margin_right = 1240.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 91.0
+color = Color( 0.654902, 0.992157, 1, 0.231373 )
+
+[node name="DebugText" type="RichTextLabel" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 91.0

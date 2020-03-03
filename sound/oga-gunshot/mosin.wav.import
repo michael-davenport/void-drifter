@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mosin.wav-9ce4c91b15e3222e702870cfdf5372ae.sample"
+
+[deps]
+
+source_file="res://sound/oga-gunshot/mosin.wav"
+dest_files=[ "res://.import/mosin.wav-9ce4c91b15e3222e702870cfdf5372ae.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

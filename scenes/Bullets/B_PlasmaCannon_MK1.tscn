@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/game/objects/bullet.gd" type="Script" id=1]
+[ext_resource path="res://raw/worker_bolt/workerbolt_0.png" type="Texture" id=2]
+[ext_resource path="res://scenes/FX/HitRed.tscn" type="PackedScene" id=3]
+[ext_resource path="res://raw/worker_bolt/workerbolt_1.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.55058
+
+[node name="Node2D" type="RigidBody2D"]
+collision_layer = 8
+mass = 2.0
+script = ExtResource( 1 )
+Damage = 3.0
+Lifetime = 1.0
+HitScene = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.5, -0.5 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )

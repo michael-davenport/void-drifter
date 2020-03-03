@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1_bl2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://raw/bad guy.png" type="Texture" id=7]
+[ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=11]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=12]
+
+[sub_resource type="PhysicsMaterial" id=1]
+rough = true
+
+[node name="ShipObj" type="RigidBody2D"]
+mass = 10.0
+physics_material_override = SubResource( 1 )
+gravity_scale = 0.0
+linear_damp = 0.45
+angular_damp = 1.5
+script = ExtResource( 11 )
+DamageHandler = NodePath("part_dmghandler")
+EnginePaths = [ NodePath("Sprite/RedThruster") ]
+WeaponPaths = [ NodePath("Sprite/part_gun") ]
+TorqueForce = 25000.0
+MaxAngularVelocity = 0.785
+Explod = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="RedThruster" parent="Sprite" instance=ExtResource( 9 )]
+position = Vector2( 0, 11.25 )
+Parent = NodePath("../..")
+
+[node name="ply_engine" parent="Sprite/RedThruster" index="0"]
+modulate = Color( 1, 0, 0.447059, 1 )
+
+[node name="part_gun" parent="Sprite" instance=ExtResource( 2 )]
+position = Vector2( -5.75667e-05, -15.9024 )
+Parent = NodePath("../..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -4.78273, 15.2644, -0.852102, 4.23821, 15.7382, 0.00130081, -0.903151, -4.03142, -4.78273, -15.3639, -9.98953, -9.95288, -9.98953, 9.85339 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 1 )
+Health = 2.0
+Parent = NodePath("..")
+TF = 1.0
+
+[editable path="Sprite/RedThruster"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://raw/worker_bolt/workerbolt_0.png" type="Texture" id=1]
+[ext_resource path="res://scripts/bullet_base.gd" type="Script" id=2]
+[ext_resource path="res://raw/worker_bolt/workerbolt_1.png" type="Texture" id=3]
+[ext_resource path="res://scenes/FX/HitRed.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.65088
+
+[node name="LaserBolt_Red" type="KinematicBody2D"]
+script = ExtResource( 2 )
+Damage = 4.0
+Lifetime = 1.0
+HitScene = ExtResource( 4 )
+
+[node name="laser bolt" type="AnimatedSprite" parent="."]
+position = Vector2( -2.5, -2.5 )
+frames = SubResource( 1 )
+playing = true
+centered = false
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )

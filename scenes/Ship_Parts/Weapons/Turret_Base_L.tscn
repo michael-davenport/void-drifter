@@ -1,0 +1,53 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/game/parts/part_turret.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/parts/part_gun.gd" type="Script" id=2]
+[ext_resource path="res://raw/turret_base_colorless_large.png" type="Texture" id=3]
+[ext_resource path="res://raw/turret_blaster_large.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Bullets/B_CombatLaser_Mk1_bl2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/utility/AudioStreamPlayer2D_PitchRandomizer.gd" type="Script" id=6]
+[ext_resource path="res://sound/wepon/plasma.wav" type="AudioStream" id=7]
+[ext_resource path="res://raw/muzzle-laser alt/sprite_4.png" type="Texture" id=8]
+[ext_resource path="res://raw/muzzle-laser alt/sprite_3.png" type="Texture" id=9]
+[ext_resource path="res://raw/muzzle-laser alt/sprite_0.png" type="Texture" id=10]
+[ext_resource path="res://raw/muzzle-laser alt/sprite_1.png" type="Texture" id=11]
+[ext_resource path="res://raw/muzzle-laser alt/sprite_2.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "default",
+"speed": 24.0
+} ]
+
+[node name="Turret" type="Node2D"]
+script = ExtResource( 1 )
+BarrelAnchor = NodePath("BarrelAnchor")
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.476563, 0.268317, 0, 1 )
+texture = ExtResource( 3 )
+
+[node name="BarrelAnchor" type="Node2D" parent="."]
+script = ExtResource( 2 )
+Parent = NodePath("..")
+BulletScene = ExtResource( 5 )
+MuzzleSprite = NodePath("spurt")
+MuzVelocity = 500.0
+SoundNodes = [ NodePath("../AudioStreamPlayer2D") ]
+MaxAmmo = 1
+RechargeRate = 2.0
+FireRate = 0.001
+
+[node name="turret_blaster_large" type="Sprite" parent="BarrelAnchor"]
+position = Vector2( 0, -1.00029 )
+texture = ExtResource( 4 )
+
+[node name="spurt" type="AnimatedSprite" parent="BarrelAnchor"]
+position = Vector2( -0.46167, -9.31039 )
+frames = SubResource( 1 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+script = ExtResource( 6 )

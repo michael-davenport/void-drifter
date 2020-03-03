@@ -1,0 +1,71 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://scripts/gp_spritescene.gd" type="Script" id=1]
+[ext_resource path="res://raw/explod/explod_00.png" type="Texture" id=2]
+[ext_resource path="res://raw/explod/explod_09.png" type="Texture" id=3]
+[ext_resource path="res://raw/explod/explod_14.png" type="Texture" id=4]
+[ext_resource path="res://raw/explod/explod_12.png" type="Texture" id=5]
+[ext_resource path="res://raw/explod/explod_07.png" type="Texture" id=6]
+[ext_resource path="res://raw/explod/explod_18.png" type="Texture" id=7]
+[ext_resource path="res://raw/explod/explod_10.png" type="Texture" id=8]
+[ext_resource path="res://raw/explod/explod_05.png" type="Texture" id=9]
+[ext_resource path="res://raw/explod/explod_15.png" type="Texture" id=10]
+[ext_resource path="res://raw/explod/explod_16.png" type="Texture" id=11]
+[ext_resource path="res://raw/explod/explod_08.png" type="Texture" id=12]
+[ext_resource path="res://raw/explod/explod_03.png" type="Texture" id=13]
+[ext_resource path="res://raw/explod/explod_06.png" type="Texture" id=14]
+[ext_resource path="res://raw/explod/explod_02.png" type="Texture" id=15]
+[ext_resource path="res://raw/explod/explod_11.png" type="Texture" id=16]
+[ext_resource path="res://raw/explod/explod_13.png" type="Texture" id=17]
+[ext_resource path="res://raw/explod/explod_17.png" type="Texture" id=18]
+[ext_resource path="res://raw/explod/explod_01.png" type="Texture" id=19]
+[ext_resource path="res://raw/explod/explod_04.png" type="Texture" id=20]
+[ext_resource path="res://scripts/utility/AudioStreamPlayer2D_PitchRandomizer.gd" type="Script" id=21]
+[ext_resource path="res://sound/explod/explod_norm.wav" type="AudioStream" id=22]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 19 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 20 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 16 ), ExtResource( 5 ), ExtResource( 17 ), ExtResource( 4 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 7 ) ],
+"loop": false,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.822222, 1 )
+colors = PoolColorArray( 0.317647, 0.317647, 0.317647, 1, 1, 0, 0, 1, 1, 0.894118, 0, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 2.47
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 114.94
+initial_velocity_random = 0.29
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 72.42
+damping_random = 0.3
+color_ramp = SubResource( 3 )
+
+[node name="explod" type="AnimatedSprite"]
+frames = SubResource( 1 )
+script = ExtResource( 1 )
+KillFrame = 18
+KillTime = 1.0
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 4 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+autoplay = true
+script = ExtResource( 21 )

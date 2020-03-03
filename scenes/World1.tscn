@@ -1,0 +1,184 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://scenes/NebBG.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Ships/Playership.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/World.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Ships/Enemyship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/gp_aiController.gd" type="Script" id=5]
+[ext_resource path="res://scripts/gp_aiDirector.gd" type="Script" id=6]
+[ext_resource path="res://star_0.png" type="Texture" id=7]
+[ext_resource path="res://star_1.png" type="Texture" id=8]
+[ext_resource path="res://star_5.png" type="Texture" id=9]
+[ext_resource path="res://star_3.png" type="Texture" id=10]
+[ext_resource path="res://star_6.png" type="Texture" id=11]
+[ext_resource path="res://star_2.png" type="Texture" id=12]
+[ext_resource path="res://star_7.png" type="Texture" id=13]
+[ext_resource path="res://star_8.png" type="Texture" id=14]
+[ext_resource path="res://star_4.png" type="Texture" id=15]
+[ext_resource path="res://scripts/gp_starSpawner.gd" type="Script" id=16]
+[ext_resource path="res://scenes/Starfield.gd" type="Script" id=17]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform float scroll_speed_x;
+uniform float scroll_speed_y;
+uniform float g_offset_x;
+uniform float g_offset_y;
+
+void fragment()
+{
+	vec2 shifteduv = UV;
+	shifteduv.x += g_offset_x;
+	shifteduv.y += g_offset_y;
+	vec4 color = texture(TEXTURE, shifteduv);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+render_priority = -100
+shader = SubResource( 1 )
+shader_param/scroll_speed_x = null
+shader_param/scroll_speed_y = null
+shader_param/g_offset_x = null
+shader_param/g_offset_y = null
+
+[sub_resource type="OpenSimplexNoise" id=3]
+seed = 2
+octaves = 6
+period = 251.1
+persistence = 0.264
+lacunarity = 3.09
+
+[sub_resource type="NoiseTexture" id=4]
+width = 2048
+height = 2048
+seamless = true
+noise = SubResource( 3 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Playership" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1, 1 )
+z_index = 1
+
+[node name="gp_AIController" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="gp_AIDirector" type="Node" parent="."]
+script = ExtResource( 6 )
+PlayerPath = NodePath("../Playership")
+AICPath = NodePath("../gp_AIController")
+BaddieScene = ExtResource( 4 )
+StartingWaveSpawnTime = 1.0
+
+[node name="gp_starSpawner" type="Node2D" parent="."]
+script = ExtResource( 16 )
+MaxStars = 250
+Player = NodePath("../Playership")
+Sprites = [ NodePath("star_0"), NodePath("star_1"), NodePath("star_2"), NodePath("star_3"), NodePath("star_4"), NodePath("star_5"), NodePath("star_6"), NodePath("star_7"), NodePath("star_8") ]
+StarfieldNode = NodePath("../StarfieldNode")
+
+[node name="star_0" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 7 )
+
+[node name="star_1" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 8 )
+
+[node name="star_2" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 12 )
+
+[node name="star_3" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 10 )
+
+[node name="star_4" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 15 )
+
+[node name="star_5" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 9 )
+
+[node name="star_6" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 11 )
+
+[node name="star_7" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -590.693, -80.5256 )
+texture = ExtResource( 13 )
+
+[node name="star_8" type="Sprite" parent="gp_starSpawner"]
+visible = false
+position = Vector2( -445.28, 180.763 )
+texture = ExtResource( 14 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 0, 0.505882, 1, 0.427451 )
+material = SubResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1024.0
+margin_top = -1024.0
+margin_right = 1024.0
+margin_bottom = 1024.0
+texture = SubResource( 4 )
+stretch_mode = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scroll_divisor = 32000.0
+Player = NodePath("../Playership")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color( 0, 0.505882, 1, 0.427451 )
+material = SubResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1024.0
+margin_top = -1024.0
+margin_right = 1024.0
+margin_bottom = 1024.0
+texture = SubResource( 4 )
+stretch_mode = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scroll_divisor = 3200.0
+Player = NodePath("../Playership")
+
+[node name="StarfieldNode" type="Node2D" parent="."]
+script = ExtResource( 17 )
+ScrollFactor = 0.8
+Player = NodePath("../Playership")
+
+[node name="ColorRect" type="ColorRect" parent="StarfieldNode"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.9126
+margin_top = -17.8319
+margin_right = 21.0874
+margin_bottom = 22.1681
+__meta__ = {
+"_edit_use_anchors_": false
+}

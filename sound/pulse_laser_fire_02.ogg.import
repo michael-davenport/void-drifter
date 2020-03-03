@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pulse_laser_fire_02.ogg-3dd20c47aeb43751c7c059b1b006996f.oggstr"
+
+[deps]
+
+source_file="res://sound/pulse_laser_fire_02.ogg"
+dest_files=[ "res://.import/pulse_laser_fire_02.ogg-3dd20c47aeb43751c7c059b1b006996f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

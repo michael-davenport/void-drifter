@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ae_autoblaster_fire.ogg-2d53ffb3bdffd609d808cc9065357d8b.oggstr"
+
+[deps]
+
+source_file="res://sound/ae_autoblaster_fire.ogg"
+dest_files=[ "res://.import/ae_autoblaster_fire.ogg-2d53ffb3bdffd609d808cc9065357d8b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
