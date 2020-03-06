@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1_bl2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=4]
+[ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_a.png" type="Texture" id=5]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=6]
+
+[node name="NME_Fighter_A" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 15
+mass = 10.0
+can_sleep = false
+linear_damp = 0.45
+angular_damp = 2.0
+script = ExtResource( 1 )
+DamageHandler = NodePath("part_dmghandler")
+EnginePaths = [ NodePath("enemy_fighter_a/part_thrust") ]
+WeaponPaths = [ NodePath("enemy_fighter_a/part_gun") ]
+TorqueForce = 25000.0
+Explod = ExtResource( 6 )
+
+[node name="enemy_fighter_a" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 5 )
+
+[node name="part_thrust" parent="enemy_fighter_a" instance=ExtResource( 4 )]
+position = Vector2( 0, 8 )
+z_index = -1
+Parent = NodePath("../..")
+EffectsParent = NodePath("../part_thrust/AnimatedSprite")
+
+[node name="part_gun" parent="enemy_fighter_a" instance=ExtResource( 3 )]
+position = Vector2( 0, -10 )
+Parent = NodePath("../..")
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 2 )
+Health = 2.0
+Parent = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -9, -14, -9, -8, -8, 0, -9, 8, -9, 14, -4, 14, 0, 5, 10, 0, 0, -5, -4, -14 )

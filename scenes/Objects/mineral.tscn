@@ -18,13 +18,18 @@ animations = [ {
 radius = 2.52946
 
 [node name="mineral" type="RigidBody2D"]
+collision_layer = 16
+collision_mask = 7
+mass = 0.15
 gravity_scale = 0.0
+linear_damp = 0.0
+angular_damp = 0.0
 script = ExtResource( 1 )
+SoundPaths = [ NodePath("AudioStreamPlayer2D") ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -0.5, -0.5 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

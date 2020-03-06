@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 		var hullbar = _ctrl.find_node("Hull") as ProgressBar
 		var wepnbar = _ctrl.find_node("Weapon") as ProgressBar
 		var shldbar = _ctrl.find_node("Shield") as ProgressBar
+		var minlbay = _ctrl.find_node("MINERALBAY") as Label
 		
 		if hullbar:
 			hullbar.max_value = _shipdmg.Health
@@ -40,6 +41,9 @@ func _process(delta: float) -> void:
 			var wpn = _ship._wep[0]
 			wepnbar.max_value = wpn.MaxAmmo
 			wepnbar.value = wpn._ammo
+		
+		if minlbay:
+			minlbay.text = "Minerals: " + str(_ship._mineralbay)
 		
 		if Input.is_action_just_pressed("camera_zoom_in"):
 			zoom -= Vector2(0.25,0.25)

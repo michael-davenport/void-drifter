@@ -6,10 +6,8 @@ export(NodePath) var Parent
 export(NodePath) var BarrelAnchor
 export(float,0.0,50.266) var MaxRotationSpeed
 
-onready var _parent = get_node(Parent)
-
+var _parent
 var _barrel
-#var linear_velocity
 var _bulletparent
 
 func _ready() -> void:
@@ -20,8 +18,10 @@ func _ready() -> void:
 	if not _barrel:
 		print("Turret " + str(self) + " cannot find the barrel anchor or parent")
 		queue_free()
+	_parent = get_node(Parent)
 	if not _parent or not (_parent is ShipObj):
 		print("Turret " + str(self) + " cannot find the parent ship or it is not valid")
+	call_deferred("pass_range")
 	return
 	
 	
@@ -36,3 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func fire() -> void:
 	_barrel.fire()
+
+func pass_range():
+	_parent._weprange.push_back(_barrel.MaxRange)
+	_parent.find_maxrange()

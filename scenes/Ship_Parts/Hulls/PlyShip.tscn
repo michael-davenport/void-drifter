@@ -25,12 +25,12 @@ mass = 10.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 can_sleep = false
-linear_damp = 0.5
+linear_damp = 0.85
 angular_damp = 30.0
 script = ExtResource( 1 )
 DamageHandler = NodePath("part_dmghandler")
 EnginePaths = [ NodePath("Sprite/PlyThrust"), NodePath("Sprite/PlyThrust2") ]
-WeaponPaths = [ NodePath("Sprite/CombatLaserMK1") ]
+WeaponPaths = [ NodePath("Sprite/CombatLaserMK1"), NodePath("Sprite/CombatLaserMK1_2") ]
 TorqueForce = 1.5e+06
 MaxAngularVelocity = 6.283
 Explod = ExtResource( 11 )
@@ -64,9 +64,13 @@ stream = ExtResource( 6 )
 stream = ExtResource( 8 )
 
 [node name="CombatLaserMK1" parent="Sprite" instance=ExtResource( 4 )]
-position = Vector2( -2.51982e-05, -6.96085 )
+position = Vector2( -9.5, -16 )
 Parent = NodePath("../..")
 MuzzleSprite = NodePath("../CombatLaserMK1/AnimatedSprite")
+
+[node name="CombatLaserMK1_2" parent="Sprite" instance=ExtResource( 4 )]
+position = Vector2( 9.5, -16 )
+Parent = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -92,3 +96,5 @@ texture = ExtResource( 14 )
 [editable path="Sprite/PlyThrust"]
 
 [editable path="Sprite/PlyThrust2"]
+
+[editable path="Sprite/CombatLaserMK1_2"]

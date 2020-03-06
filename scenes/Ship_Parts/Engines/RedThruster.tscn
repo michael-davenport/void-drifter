@@ -22,5 +22,5 @@ Force = Vector2( 40, 40 )
 texture = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.357231, 4.40587 )
+position = Vector2( -0.497121, 4.49955 )
 frames = SubResource( 1 )

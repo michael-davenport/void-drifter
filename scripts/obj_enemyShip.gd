@@ -5,7 +5,6 @@ class_name obj_EnemyShip
 onready var _root = get_tree().get_current_scene()
 
 var _aic
-var marked_for_death: = false
 
 func _ready() -> void:
 	_aic = register()
@@ -25,8 +24,10 @@ func register():
 			print(str(self) + " failed to find AI controller")
 			return null
 	_con.AIList.push_back(self)
+	_indicator = util.register_target(_root.find_node("PlyShip"),self,Color(1,0,0))
 	return _con
 
 func on_death():
 	util.fx_spawn(global_position,rotation,Vector2(2,2),Explod)
 	marked_for_death = true
+	if _indicator: _indicator.queue_free()

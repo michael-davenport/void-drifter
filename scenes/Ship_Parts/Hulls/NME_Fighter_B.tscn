@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1_bl2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=4]
+[ext_resource path="res://raw/32x32cir.png" type="Texture" id=5]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/game/parts/part_shield.gd" type="Script" id=7]
+[ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_b.png" type="Texture" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 17.0294
+
+[node name="NME_Fighter_B" type="RigidBody2D"]
+mass = 25.0
+linear_damp = 0.45
+angular_damp = 3.0
+script = ExtResource( 1 )
+DamageHandler = NodePath("part_dmghandler")
+EnginePaths = [ NodePath("enemy_fighter_b/RedThruster"), NodePath("enemy_fighter_b/RedThruster2") ]
+WeaponPaths = [ NodePath("enemy_fighter_b/part_gun"), NodePath("enemy_fighter_b/part_gun2") ]
+TorqueForce = 15000.0
+Explod = ExtResource( 6 )
+
+[node name="enemy_fighter_b" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 8 )
+
+[node name="RedThruster" parent="enemy_fighter_b" instance=ExtResource( 4 )]
+position = Vector2( -5, 9 )
+z_index = -1
+Parent = NodePath("../..")
+
+[node name="RedThruster2" parent="enemy_fighter_b" instance=ExtResource( 4 )]
+position = Vector2( 5, 9 )
+z_index = -1
+Parent = NodePath("../..")
+
+[node name="part_gun" parent="enemy_fighter_b" instance=ExtResource( 3 )]
+position = Vector2( -7, -10 )
+Parent = NodePath("../..")
+
+[node name="part_gun2" parent="enemy_fighter_b" instance=ExtResource( 3 )]
+position = Vector2( 7, -10 )
+Parent = NodePath("../..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -13, 1, -12, 9, -6, 16, 0, 10, 10, 7, 13, 0, 10, -7, 0, -10, -6, -16, -12, -9, -13, -1, -13, 1 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 2 )
+Health = 6.0
+Parent = NodePath("..")
+ShieldEmitter = NodePath("../part_shield")
+
+[node name="part_shield" type="CollisionShape2D" parent="."]
+position = Vector2( -3, 0 )
+shape = SubResource( 1 )
+script = ExtResource( 7 )
+MaxHP = 4.0
+DownTime = 4.0
+Visual = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite" parent="part_shield"]
+modulate = Color( 1, 0.117647, 0, 0.156863 )
+texture = ExtResource( 5 )
+
+[editable path="enemy_fighter_b/RedThruster"]
+
+[editable path="enemy_fighter_b/RedThruster2"]
+
+[editable path="enemy_fighter_b/part_gun"]
+
+[editable path="enemy_fighter_b/part_gun2"]

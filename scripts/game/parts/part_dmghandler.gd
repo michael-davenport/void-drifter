@@ -20,6 +20,7 @@ func _ready() -> void:
 	_health = Health as float
 
 func _process(_delta: float) -> void:
+	if _parent.marked_for_death: return
 	if _shield:
 		if _shield.disabled: _parent.TorqueForce = _tf
 		else: _parent.TorqueForce = _tf * TF

@@ -12,11 +12,14 @@ export(Array, NodePath) var SoundNodes
 export(int) var MaxAmmo
 export(float) var RechargeRate
 export(float) var FireRate
+export(int) var MaxRange = 500
 
 var _cycle: = 0.0
 var _cycling: = false
 var _ammo : float
 var _bulletparent
+var _range: = 65535
+var _retry: = 0
 
 onready var _parent = get_node(Parent)
 onready var _sprite = get_node(MuzzleSprite)
@@ -26,12 +29,15 @@ func _ready() -> void:
 		print("ERROR: " + str(self) + " is unable to find its parent!")
 		queue_free()
 	if not _sprite: print("WARNING: " + str(self) + " does not have a muzzle vfx sprite assigned")
+	
 	if _parent:
 		if _parent is ShipObj:
 			_bulletparent = _parent
 		if _parent is part_turret:
 			_bulletparent = _parent._parent
 	_ammo = MaxAmmo
+	
+	call_deferred("pass_range")
 	return
 
 func _process(delta: float) -> void:
@@ -62,7 +68,9 @@ func fire() -> void:
 		if _bulletparent:
 			fore = fore.rotated((randf() - randf()) * Spread)
 			blap.fire(fore,MuzVelocity,_bulletparent,_bulletparent.linear_velocity)
-			if SoundNodes.size() > 0: get_node(SoundNodes[randi() % SoundNodes.size()]).play()
+			if SoundNodes.size() > 0: 
+				var snd = get_node(util.select_random(SoundNodes))
+				snd.play_rnd()
 			_cycling = true
 			if _sprite:
 				_sprite.visible = true
@@ -81,3 +89,14 @@ func find_bparent():
 		_bulletparent = _parent._parent
 		return _bulletparent
 	print("ERROR: part_gun " + str(self) + " unable to find bulletparent!")
+
+func pass_range():
+	if _bulletparent:
+		if _bulletparent is ShipObj:
+			_bulletparent._weprange.push_back(MaxRange)
+			_bulletparent.find_maxrange()
+	else:
+		print("WARNING: " + str(self) + " did not find a ShipObj bullet parent!")
+#	if _retry < 60:
+#		_retry += 1
+#		call_deferred("pass_range")

@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/game/objects/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://raw/shitrock.png" type="Texture" id=2]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=3]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Objects/mineral.tscn" type="PackedScene" id=5]
 
 [sub_resource type="PhysicsMaterial" id=1]
 rough = true
@@ -10,12 +13,19 @@ rough = true
 mass = 100.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
-linear_damp = 0.0
-angular_damp = 0.0
+linear_damp = 0.01
+angular_damp = 0.01
 script = ExtResource( 1 )
+DamageHandler = NodePath("part_dmghandler")
+Explod = ExtResource( 4 )
+Minerals = [ ExtResource( 5 ) ]
 
 [node name="shitrock" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -1.5076, -32.0341, 13.3777, -30.6067, 29.0786, -11.4394, 31.5254, 12.6217, 23.3691, 28.1187, 5.01744, 33.2164, -18.8398, 30.9734, -25.7726, 19.3506, -24.957, 7.32009, -30.2586, -6.54563, -25.1609, -22.6543, -13.5382, -31.6263 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 3 )
+Parent = NodePath("..")

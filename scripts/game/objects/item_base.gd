@@ -10,7 +10,10 @@ func _ready() -> void:
 
 func on_hit(body):
 	if body is Playership:
-		body._inventory.push_back(Type)
+		if Type == data.ITEM_TYPE.mineral:
+			body._mineralbay += 1
+		else:
+			body._inventory.push_back(Type)
 		if SoundPaths.size() > 0:
 			get_node(SoundPaths[randi() % SoundPaths.size()]).play()
 		queue_free()

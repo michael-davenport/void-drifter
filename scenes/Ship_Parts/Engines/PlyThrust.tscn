@@ -16,7 +16,7 @@ animations = [ {
 [node name="PlyThrust" type="Node2D"]
 script = ExtResource( 1 )
 EffectsParent = NodePath("engine_flare")
-Force = Vector2( 0, -1000 )
+Force = Vector2( 50, 25 )
 
 [node name="ply_engine" type="Sprite" parent="."]
 texture = ExtResource( 4 )

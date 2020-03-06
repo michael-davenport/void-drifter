@@ -7,6 +7,8 @@ var OffscreenMin = sqrt(
 
 var CurAIDirector = null
 
+var ArrowScene = preload("res://scenes/Objects/arrow.tscn")
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	return
@@ -40,3 +42,11 @@ func scn_spawn(point : Vector2, rot : float, type : PackedScene):
 	_scn.global_position = point
 	_scn.global_rotation = rot
 	return _scn
+
+func register_target(anchor, target, color : Color):
+	var arrow = scn_spawn(anchor.global_position,0,util.ArrowScene) as target_arrow
+	arrow._anchor = anchor
+	arrow._target = target
+	arrow.z_index = 10
+	arrow.modulate = color
+	return arrow

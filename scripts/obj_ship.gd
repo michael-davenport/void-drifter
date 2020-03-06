@@ -8,6 +8,7 @@ export(Array,NodePath) var WeaponPaths
 export(float) var TorqueForce = PI*mass
 export(float) var MaxAngularVelocity = PI/16
 export(PackedScene) var Explod
+export(float) var SensorStrength = 7000
 var InputVector : Vector2
 var Thrust : Vector2
 var Forward: Vector2
@@ -17,8 +18,13 @@ var TarDir: Vector2
 var _dmg
 var _eng = []
 var _wep = []
+var _weprange = []
+var _maxrange: = 65535
 var _torque: = 0.0
 var _prevang: = 0.0
+var _indicator
+var _mineralbay: = 0
+var marked_for_death: = false
 
 func _ready() -> void:
 	if DamageHandler:
@@ -40,4 +46,16 @@ func _physics_process(delta: float) -> void:
 	return
 
 func on_death():
-	pass
+	if _indicator: _indicator.queue_free()
+
+func find_maxrange():
+	for x in _weprange:
+		if x < _maxrange: _maxrange = x
+
+func die_clean():
+	for x in _wep:
+		x.queue_free()
+	for x in _eng:
+		x.queue_free()
+	_dmg.queue_free()
+	queue_free()
