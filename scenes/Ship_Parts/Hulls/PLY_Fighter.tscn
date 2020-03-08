@@ -54,7 +54,7 @@ Parent = NodePath("../..")
 
 [node name="part_dmghandler" type="Node2D" parent="."]
 script = ExtResource( 4 )
-Health = 8.0
+Health = 4.0
 Parent = NodePath("..")
 ShieldEmitter = NodePath("../part_shield")
 
@@ -63,6 +63,7 @@ position = Vector2( 4, 0 )
 shape = SubResource( 1 )
 script = ExtResource( 2 )
 MaxHP = 4.0
+RegenRate = 1.0
 Visual = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite" parent="part_shield"]

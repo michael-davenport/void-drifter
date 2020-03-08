@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/game/parts/part_shield.gd" type="Script" id=7]
 [ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_b.png" type="Texture" id=8]
+[ext_resource path="res://scenes/FX/dmgfx.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 17.0294
 
 [node name="NME_Fighter_B" type="RigidBody2D"]
@@ -18,6 +19,8 @@ linear_damp = 0.45
 angular_damp = 3.0
 script = ExtResource( 1 )
 DamageHandler = NodePath("part_dmghandler")
+DamageGraphic = NodePath("enemy_fighter_b/dmgfx")
+DamageThreshold = 0.5
 EnginePaths = [ NodePath("enemy_fighter_b/RedThruster"), NodePath("enemy_fighter_b/RedThruster2") ]
 WeaponPaths = [ NodePath("enemy_fighter_b/part_gun"), NodePath("enemy_fighter_b/part_gun2") ]
 TorqueForce = 15000.0
@@ -45,6 +48,9 @@ Parent = NodePath("../..")
 position = Vector2( 7, -10 )
 Parent = NodePath("../..")
 
+[node name="dmgfx" parent="enemy_fighter_b" instance=ExtResource( 9 )]
+visible = false
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
 polygon = PoolVector2Array( -13, 1, -12, 9, -6, 16, 0, 10, 10, 7, 13, 0, 10, -7, 0, -10, -6, -16, -12, -9, -13, -1, -13, 1 )
@@ -57,7 +63,7 @@ ShieldEmitter = NodePath("../part_shield")
 
 [node name="part_shield" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 script = ExtResource( 7 )
 MaxHP = 4.0
 DownTime = 4.0
@@ -74,3 +80,5 @@ texture = ExtResource( 5 )
 [editable path="enemy_fighter_b/part_gun"]
 
 [editable path="enemy_fighter_b/part_gun2"]
+
+[editable path="enemy_fighter_b/dmgfx"]

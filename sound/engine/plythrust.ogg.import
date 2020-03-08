@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/plythrust.ogg-3ea81a29e9076d41fb9f32902fe80e81.oggstr"
+
+[deps]
+
+source_file="res://sound/engine/plythrust.ogg"
+dest_files=[ "res://.import/plythrust.ogg-3ea81a29e9076d41fb9f32902fe80e81.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

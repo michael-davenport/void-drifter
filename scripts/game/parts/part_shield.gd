@@ -16,7 +16,9 @@ func _ready() -> void:
 	_hp = MaxHP
 
 func _process(delta: float) -> void:
-	if not disabled: _hp += delta * RegenRate
+	if not disabled:
+		_hp += delta * RegenRate
+		if _hp > MaxHP: _hp = MaxHP
 	else:
 		_dt += delta
 		if _dt > DownTime:

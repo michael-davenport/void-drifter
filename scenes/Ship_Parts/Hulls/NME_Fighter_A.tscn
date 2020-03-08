@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=4]
 [ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_a.png" type="Texture" id=5]
 [ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/FX/dmgfx.tscn" type="PackedScene" id=7]
+[ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_a_dmg.png" type="Texture" id=8]
 
 [node name="NME_Fighter_A" type="RigidBody2D"]
 collision_layer = 4
@@ -13,13 +15,17 @@ collision_mask = 15
 mass = 10.0
 can_sleep = false
 linear_damp = 0.45
-angular_damp = 2.0
+angular_damp = 15.0
 script = ExtResource( 1 )
 DamageHandler = NodePath("part_dmghandler")
+DamageGraphic = NodePath("enemy_fighter_a/dmgfx")
+DamageThreshold = 0.65
 EnginePaths = [ NodePath("enemy_fighter_a/part_thrust") ]
 WeaponPaths = [ NodePath("enemy_fighter_a/part_gun") ]
-TorqueForce = 25000.0
+TorqueForce = 150000.0
+MaxAngularVelocity = 3.142
 Explod = ExtResource( 6 )
+SensorStrength = 2000.0
 
 [node name="enemy_fighter_a" type="Sprite" parent="."]
 rotation = 1.5708
@@ -35,10 +41,34 @@ EffectsParent = NodePath("../part_thrust/AnimatedSprite")
 position = Vector2( 0, -10 )
 Parent = NodePath("../..")
 
+[node name="dmgfx" parent="enemy_fighter_a" instance=ExtResource( 7 )]
+visible = false
+texture = ExtResource( 8 )
+
+[node name="Particles2D" parent="enemy_fighter_a/dmgfx" index="0"]
+explosiveness = 0.18
+randomness = 0.2
+visibility_rect = Rect2( -45.5591, -47.4968, 94.594, 92.4414 )
+
+[node name="ColorRect" type="ColorRect" parent="enemy_fighter_a"]
+visible = false
+margin_left = -1.0
+margin_top = -10.0
+margin_right = 399.0
+margin_bottom = -8.0
+rect_rotation = -90.0
+color = Color( 0, 1, 0.0862745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="part_dmghandler" type="Node2D" parent="."]
 script = ExtResource( 2 )
 Health = 2.0
 Parent = NodePath("..")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( -9, -14, -9, -8, -8, 0, -9, 8, -9, 14, -4, 14, 0, 5, 10, 0, 0, -5, -4, -14 )
+
+[editable path="enemy_fighter_a/dmgfx"]

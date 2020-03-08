@@ -4,7 +4,7 @@ class_name part_turret
 
 export(NodePath) var Parent
 export(NodePath) var BarrelAnchor
-export(float,0.0,50.266) var MaxRotationSpeed
+export(float,0.0,50.266) var MaxRotationSpeed = PI/8
 
 var _parent
 var _barrel

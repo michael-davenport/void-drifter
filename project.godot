@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/game/objects/bullet.gd"
 }, {
-"base": "StaticBody2D",
+"base": "KinematicBody2D",
 "class": "object_gate",
 "language": "GDScript",
 "path": "res://scripts/game/objects/gate.gd"
@@ -118,6 +118,11 @@ _global_script_classes=[ {
 "class": "part_dmghandler",
 "language": "GDScript",
 "path": "res://scripts/game/parts/part_dmghandler.gd"
+}, {
+"base": "Node2D",
+"class": "part_fsm",
+"language": "GDScript",
+"path": "res://scripts/game/mngr/state.gd"
 }, {
 "base": "Node2D",
 "class": "part_gun",
@@ -162,6 +167,7 @@ _global_script_class_icons={
 "object_gate": "",
 "part_Thruster": "",
 "part_dmghandler": "",
+"part_fsm": "",
 "part_gun": "",
 "part_shield": "",
 "part_turret": "",

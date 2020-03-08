@@ -22,12 +22,12 @@ animations = [ {
 script = ExtResource( 1 )
 BulletScene = ExtResource( 2 )
 MuzzleSprite = NodePath("AnimatedSprite")
-MuzVelocity = 1000.0
+MuzVelocity = 900.0
 Spread = 0.098
 SoundNodes = [ NodePath("AudioStreamPlayer2D") ]
 MaxAmmo = 24
 RechargeRate = 7.0
-FireRate = 0.12
+FireRate = 0.17
 MaxRange = 600
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

@@ -31,9 +31,9 @@ var rest_time: = 0.0
 func _ready() -> void:
 	if not Enabled: queue_free()
 	player = get_node(PlayerPath)
-	aic = get_node(AICPath)
-	if not player or not aic:
-		print("AI DIRECTOR MISSING COMPONENTS:\nPlayer: " + str(player) + "\nAI Controller: " + str(aic))
+	#aic = get_node(AICPath)
+	if not player or (data.EnemyList == null):
+		print("AI DIRECTOR MISSING COMPONENTS:\nPlayer: " + str(player) + "\nAI Controller: " + str(data.EnemyList))
 		queue_free()
 	
 	util.CurAIDirector = self
@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 		rest_time += delta
 		if rest_time > _restformula:
 			rest_time = 0.0
-			if aic.AIList.size() < _maxformula:
+			if data.EnemyList.size() < _maxformula:
 				spawn_baddie()
 	return
 
@@ -54,6 +54,8 @@ func spawn_baddie() -> void:
 	var spawnpos = util.random_point_minmax(tarpos,util.OffscreenMin,util.OffscreenMin * 1.5)
 	get_tree().get_current_scene().call_deferred("add_child", dood)
 	dood.global_position = spawnpos
+	dood.z_index = 2
+	util.register_target(player,dood,Color(1,0,0))
 	return
 
 func start_wave() -> void:

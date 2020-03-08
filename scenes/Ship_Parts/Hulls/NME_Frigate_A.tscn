@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://textures/Ship_Parts/Hulls/enemy_frigate_a_dmg.png" type="Texture" id=1]
+[ext_resource path="res://textures/Ship_Parts/Hulls/enemy_frigate_a.png" type="Texture" id=2]
+[ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=3]
+[ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Turret_Base_L.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_PlasmaCannon_MK2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/FX/dmgfx.tscn" type="PackedScene" id=9]
+
+[node name="obj_EnemyShip" type="RigidBody2D"]
+mass = 250.0
+linear_damp = 0.15
+angular_damp = 0.8
+script = ExtResource( 4 )
+DamageHandler = NodePath("part_dmghandler")
+DamageGraphic = NodePath("enemy_frigate_a/dmgfx")
+EnginePaths = [ NodePath("enemy_frigate_a/RedThruster"), NodePath("enemy_frigate_a/RedThruster2") ]
+WeaponPaths = [ NodePath("enemy_frigate_a/HeavyPlasma"), NodePath("enemy_frigate_a/Turret"), NodePath("enemy_frigate_a/Turret2"), NodePath("enemy_frigate_a/Turret3") ]
+TorqueForce = 450000.0
+Explod = ExtResource( 8 )
+
+[node name="enemy_frigate_a" type="Sprite" parent="."]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="Turret" parent="enemy_frigate_a" instance=ExtResource( 5 )]
+position = Vector2( -32, -20 )
+Parent = NodePath("../..")
+MaxRotationSpeed = 3.142
+
+[node name="Turret2" parent="enemy_frigate_a" instance=ExtResource( 5 )]
+position = Vector2( -28, 32 )
+Parent = NodePath("../..")
+MaxRotationSpeed = 3.142
+
+[node name="Turret3" parent="enemy_frigate_a" instance=ExtResource( 5 )]
+position = Vector2( 32, -20 )
+Parent = NodePath("../..")
+MaxRotationSpeed = 3.142
+
+[node name="HeavyPlasma" parent="enemy_frigate_a" instance=ExtResource( 6 )]
+position = Vector2( 4, -8 )
+Parent = NodePath("../..")
+
+[node name="dmgfx" parent="enemy_frigate_a" instance=ExtResource( 9 )]
+texture = ExtResource( 1 )
+
+[node name="Particles2D" parent="enemy_frigate_a/dmgfx" index="0"]
+position = Vector2( 7.15256e-07, 16 )
+
+[node name="RedThruster" parent="enemy_frigate_a" instance=ExtResource( 7 )]
+position = Vector2( 4, 52 )
+z_index = -1
+Parent = NodePath("../..")
+
+[node name="RedThruster2" parent="enemy_frigate_a" instance=ExtResource( 7 )]
+position = Vector2( -4, 52 )
+z_index = -1
+Parent = NodePath("../..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -40, 20, -32, -36, -4, -56, 76, -36, 76, -20, 24, -12, 24, 12, 76, 20, 76, 36, -4, 56, -32, 36 )
+
+[node name="part_dmghandler" type="Node2D" parent="."]
+script = ExtResource( 3 )
+Health = 32.0
+Parent = NodePath("..")
+
+[editable path="enemy_frigate_a/dmgfx"]

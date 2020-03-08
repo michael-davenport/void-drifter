@@ -14,8 +14,8 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 3.43118
-height = 5.11346
+radius = 7.69501
+height = 8.80875
 
 [node name="Node2D" type="RigidBody2D"]
 collision_layer = 8
@@ -26,6 +26,7 @@ Lifetime = 2.0
 HitScene = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 playing = true
 

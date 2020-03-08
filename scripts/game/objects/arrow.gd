@@ -10,6 +10,10 @@ var _anchor #should generally always be the camera
 var _target
 var _max
 
+onready var dbgLabel = $arrow/Debug/dbgLabel
+onready var dbg = $arrow/Debug
+onready var spr = $arrow
+
 func _ready() -> void:
 	if not _anchor:
 		_anchor = get_node(AnchorNode)
@@ -22,10 +26,30 @@ func _ready() -> void:
 		_max = _anchor.SensorStrength
 
 func _process(_delta: float) -> void:
-	if _anchor and _target:
-		var dir = _anchor.global_position.direction_to(_target.global_position)
-		var pos = _anchor.global_position + (dir * (util.OffscreenMin * ScreenRatio))
-		var dst = _anchor.global_position.distance_to(_target.global_position)
-		global_position = pos
-		rotate(get_angle_to(_target.global_position))
-		modulate.a = -(log(dst/_max)/2.718)
+	if not validate():
+		deregister()
+		return
+	var dir = _anchor.global_position.direction_to(_target.global_position)
+	var pos = _anchor.global_position + (dir * (util.OffscreenMin * ScreenRatio))
+	var dst = _anchor.global_position.distance_to(_target.global_position)
+	global_position = pos
+	rotate(get_angle_to(_target.global_position))
+	spr.self_modulate.a = -(log(dst/_max)/2.718)
+	
+	if dbg:
+		dbg.rotation = -rotation - PI / 2
+		if _target is ShipObj:
+			dbgLabel.text = "Ship: " + str(_target) + "\n" + "FSM State: " + str(_target._fsm.state) + "\n" + "FSM Params: " + str(_target._fsm.curparams)
+
+func validate() -> bool:
+	if not is_instance_valid(_target):
+		return false
+	if not is_instance_valid(_anchor):
+		return false
+	if _target is ShipObj:
+		if _target.marked_for_death:
+			return false
+	return true
+
+func deregister() -> void:
+	queue_free()

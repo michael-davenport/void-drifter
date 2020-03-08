@@ -15,7 +15,7 @@ gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 1 )
-Lifetime = 0.6
+Lifetime = 0.5
 HitScene = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
