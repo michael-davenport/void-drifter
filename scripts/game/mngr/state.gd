@@ -49,6 +49,7 @@ func fsm_goto(ship : ShipObj, params = {}) -> void:
 		if params.has('tgt'):
 			if dst > ship.SensorStrength:
 				emit_signal("change_state",FSM_TYPE.idle,{})
+	interrupt_scan_hostiles(ship)
 
 func fsm_attack(ship : ShipObj, params = {}) -> void:
 	if not ship: ship = get_parent()
@@ -107,3 +108,10 @@ func fsm_sub_attackrun(ship : ShipObj, params = {}):
 			dst - ship._maxrange / 3.3,
 			sin((PI/2)*ship._dta)
 		)
+
+func interrupt_scan_hostiles(ship : ShipObj):
+	var plyship = get_tree().get_current_scene().find_node("PlyShip")
+	if is_instance_valid(plyship):
+		if plyship._alive:
+			if ship.global_position.distance_to(plyship.global_position) < ship.SensorStrength:
+				emit_signal("change_state",FSM_TYPE.attack,{ tgt = plyship })

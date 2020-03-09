@@ -4,9 +4,14 @@ class_name obj_EnemyShip
 
 onready var _root = get_tree().get_current_scene()
 
+export(Array,int) var Loot
+export(float,0,1) var ChanceToDrop
+
 var _aic
 var _fsm : part_fsm
 var _dta: = 0.0 #delta tracking used for sine-wave functions in the fsm
+
+signal internal_die
 
 func _ready() -> void:
 	register()
@@ -25,6 +30,7 @@ func _process(delta: float) -> void:
 		#if _indicator: _indicator.queue_free()
 		#yield(get_tree().create_timer(0.2), "timeout")
 		call_deferred("queue_free")
+		emit_signal("internal_die")
 
 func pew() -> void:
 	for x in _wep:
@@ -36,7 +42,18 @@ func register():
 
 func on_death():
 	on_statechange(_fsm.FSM_TYPE.die,{})
+	yield(self,"internal_die")
+	pinata()
 
 func on_statechange(state, params):
 	_fsm.state = state
 	_fsm.curparams = params
+
+func pinata():
+	randomize()
+	if randf() < ChanceToDrop:
+		var m = randf() * Loot.size()
+		for i in range(0,m):
+			var item = util.scn_spawn(global_position,global_rotation,data.ITEM_DICT[util.select_random(Loot)].ItemScene)
+			item.linear_velocity.x = (randf() - randf()) * 250
+			item.linear_velocity.y = (randf() - randf()) * 250

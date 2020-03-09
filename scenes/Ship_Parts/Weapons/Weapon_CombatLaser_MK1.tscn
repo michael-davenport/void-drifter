@@ -1,0 +1,50 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/game/parts/part_weapon.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Bullets/B_CombatLaser_Mk1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/game/intangible/audiostreamplayer2d_randomized.gd" type="Script" id=3]
+[ext_resource path="res://raw/muzzle-laser/sprite_4.png" type="Texture" id=4]
+[ext_resource path="res://sound/wepon/blue-4.wav" type="AudioStream" id=5]
+[ext_resource path="res://raw/muzzle-laser/sprite_0.png" type="Texture" id=6]
+[ext_resource path="res://raw/muzzle-laser/sprite_2.png" type="Texture" id=7]
+[ext_resource path="res://raw/muzzle-laser/sprite_3.png" type="Texture" id=8]
+[ext_resource path="res://textures/Ship_Parts/Weapons/Gun_CombatLaser_Mk1.png" type="Texture" id=9]
+[ext_resource path="res://raw/muzzle-laser/sprite_1.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 4 ), null ],
+"loop": false,
+"name": "default",
+"speed": 24.0
+} ]
+
+[node name="Weapon_CombatLaser_MK1" type="Node2D"]
+script = ExtResource( 1 )
+BulletScene = ExtResource( 2 )
+ItemType = 1
+MuzzleSprite = NodePath("../Weapon_CombatLaser_MK1/Texture/MuzzleFlash")
+MuzzleNode = NodePath("../Weapon_CombatLaser_MK1/Texture/Muzzle")
+AudioPlayer = NodePath("../Weapon_CombatLaser_MK1/asp2d_random")
+MuzVelocity = 900.0
+Spread = 0.196
+MaxAmmo = 20
+RechargeRate = 4.0
+FireRate = 0.16
+MaxRange = 800
+
+[node name="Texture" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
+texture = ExtResource( 9 )
+
+[node name="MuzzleFlash" type="AnimatedSprite" parent="Texture"]
+position = Vector2( -0.5, -7.5 )
+frames = SubResource( 1 )
+
+[node name="Muzzle" type="Node2D" parent="Texture"]
+position = Vector2( 0, -5 )
+
+[node name="asp2d_random" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+max_distance = 500.0
+script = ExtResource( 3 )

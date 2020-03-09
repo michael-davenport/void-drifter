@@ -26,6 +26,8 @@ TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 6 )
 SensorStrength = 2000.0
+Loot = [ 2, 2, 1 ]
+ChanceToDrop = 0.227
 
 [node name="enemy_fighter_a" type="Sprite" parent="."]
 rotation = 1.5708

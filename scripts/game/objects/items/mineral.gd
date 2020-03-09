@@ -1,4 +1,4 @@
-extends "res://scripts/game/objects/item_base.gd"
+extends item_base
 
 
 # Declare member variables here. Examples:

@@ -13,8 +13,8 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -22,8 +22,8 @@ __meta__ = {
 }
 
 [node name="HBoxTop" type="HBoxContainer" parent="Control/VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 237.0
+margin_right = 1920.0
+margin_bottom = 357.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -38,105 +38,115 @@ align = 1
 valign = 1
 
 [node name="HBoxMid" type="HBoxContainer" parent="Control/VBoxContainer"]
-margin_top = 241.0
-margin_right = 1280.0
-margin_bottom = 478.0
+margin_top = 361.0
+margin_right = 1920.0
+margin_bottom = 718.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer"]
-margin_top = 482.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_top = 722.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/VBoxContainer"]
-margin_right = 1280.0
-margin_bottom = 117.0
+margin_right = 1920.0
+margin_bottom = 177.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/VBoxContainer"]
-margin_top = 121.0
-margin_right = 1280.0
-margin_bottom = 238.0
+margin_top = 181.0
+margin_right = 1920.0
+margin_bottom = 358.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_right = 424.0
-margin_bottom = 117.0
+margin_right = 637.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
-margin_right = 424.0
-margin_bottom = 117.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+margin_right = 316.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
-color = Color( 1, 0.796078, 0, 0.0980392 )
 
-[node name="MINERALBAY" type="Label" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/ColorRect"]
-margin_left = 31.5386
-margin_top = 24.5643
-margin_right = 71.5386
-margin_bottom = 38.5643
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Inventory" type="Label" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 316.0
+margin_bottom = 177.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+margin_left = 320.0
+margin_right = 637.0
+margin_bottom = 177.0
+size_flags_horizontal = 3
+
+[node name="Hardpoint" type="Label" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 317.0
+margin_bottom = 177.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+align = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 428.0
-margin_right = 852.0
-margin_bottom = 117.0
+margin_left = 641.0
+margin_right = 1278.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3"]
-margin_right = 424.0
-margin_bottom = 117.0
+margin_right = 637.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
-margin_right = 424.0
-margin_bottom = 26.0
+margin_right = 637.0
+margin_bottom = 41.0
 size_flags_vertical = 3
 
 [node name="Hull" type="ProgressBar" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 modulate = Color( 1, 0, 0, 1 )
-margin_top = 30.0
-margin_right = 424.0
-margin_bottom = 56.0
+margin_top = 45.0
+margin_right = 637.0
+margin_bottom = 86.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 percent_visible = false
 
 [node name="Weapon" type="ProgressBar" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 modulate = Color( 1, 0.584314, 0, 1 )
-margin_top = 60.0
-margin_right = 424.0
-margin_bottom = 86.0
+margin_top = 90.0
+margin_right = 637.0
+margin_bottom = 131.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 percent_visible = false
 
 [node name="Shield" type="ProgressBar" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
 modulate = Color( 0, 0.439216, 1, 1 )
-margin_top = 90.0
-margin_right = 424.0
-margin_bottom = 117.0
+margin_top = 135.0
+margin_right = 637.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 percent_visible = false
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 856.0
-margin_right = 1280.0
-margin_bottom = 117.0
+margin_left = 1282.0
+margin_right = 1920.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect2" type="ColorRect" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer4"]
-margin_right = 424.0
-margin_bottom = 117.0
+[node name="ColorRect3" type="ColorRect" parent="Control/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer4"]
+margin_right = 638.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 color = Color( 1, 0.796078, 0, 0.0980392 )

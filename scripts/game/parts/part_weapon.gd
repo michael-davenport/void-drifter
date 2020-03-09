@@ -3,6 +3,8 @@ extends Node2D
 class_name part_weapon
 
 export(PackedScene) var BulletScene #Scene that will be spawned when weapon is fired
+#export(data.ITEM_TYPE) var ItemType #Type of item this will enumerate to if dropped into cargo
+export(int) var ItemType
 export(NodePath) var MuzzleSprite #Nodepath to the muzzle flash animated sprite
 export(NodePath) var MuzzleNode #Nodepath to the spawn point for the bullet
 export(NodePath) var AudioPlayer #Nodepath to the asp2d_random that contains the audio for the weapon
@@ -26,8 +28,10 @@ func _ready() -> void:
 	if MuzzleSprite:
 		_muzzlesprite = get_node(MuzzleSprite)
 		_muzzlesprite.connect("animation_finished",self,"reset_muzzlesprite")
+		_muzzlesprite.emit_signal("animation_finished")
 	if MuzzleNode: _muzzlenode = get_node(MuzzleNode)
 	if AudioPlayer: _audioplayer = get_node(AudioPlayer)
+	_ammo = MaxAmmo
 	return
 
 func _process(delta : float) -> void:
@@ -42,6 +46,12 @@ func _process(delta : float) -> void:
 	if not _cycling and _ammo < MaxAmmo:
 		_ammo += RechargeRate * delta
 		if _ammo > MaxAmmo: _ammo = MaxAmmo
+	
+	#Visual
+	if is_instance_valid(_muzzlesprite):
+		if not _muzzlesprite.playing:
+			_muzzlesprite.visible = false
+	
 	return
 
 func reset_muzzlesprite(): #Resets the muzzle flash sprite so that it can be played again
@@ -56,7 +66,7 @@ func fire() -> void: #Attempt to fire the weapon
 	#If we are able to fire, spawn the scene and do so
 	if not _cycling and _ammo >= 1:
 		var bullet = util.scn_spawn(_muzzlenode.global_position,global_rotation,BulletScene)
-		var forward = Vector2(0,-1)
+		var forward = Vector2(1,0).rotated(global_rotation - PI/2)
 		forward = forward.rotated((randf() - randf()) * Spread)
 		bullet.fire(forward,MuzVelocity,BulletParent,BulletParent.linear_velocity)
 		_cycling = true
@@ -67,6 +77,7 @@ func fire() -> void: #Attempt to fire the weapon
 			_audioplayer.play_rnd()
 		if is_instance_valid(_muzzlesprite):
 			reset_muzzlesprite()
+			_muzzlesprite.visible = true
 			_muzzlesprite.play()
 
 func pass_range():

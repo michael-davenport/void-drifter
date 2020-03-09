@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://raw/32x32cir.png" type="Texture" id=1]
 [ext_resource path="res://scripts/game/parts/part_shield.gd" type="Script" id=2]
 [ext_resource path="res://scripts/obj_plyShip.gd" type="Script" id=3]
 [ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Ship_Parts/Engines/PlyThrust.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/game/parts/part_hardpoint.gd" type="Script" id=6]
 [ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=7]
 [ext_resource path="res://textures/Ship_Parts/Hulls/player_ship.png" type="Texture" id=8]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/Weapon_CombatLaser_MK1.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 22.0
@@ -22,7 +23,7 @@ angular_damp = 30.0
 script = ExtResource( 3 )
 DamageHandler = NodePath("part_dmghandler")
 EnginePaths = [ NodePath("player_ship/part_thrust_l"), NodePath("player_ship/part_thrust_r") ]
-WeaponPaths = [ NodePath("player_ship/part_gun") ]
+WeaponPaths = [ NodePath("player_ship/part_hardpoint"), NodePath("player_ship/part_hardpoint2"), NodePath("player_ship/part_hardpoint3") ]
 TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 7 )
@@ -44,9 +45,22 @@ z_index = -1
 Parent = NodePath("../..")
 EffectsParent = NodePath("../part_thrust_l/engine_flare")
 
-[node name="part_gun" parent="player_ship" instance=ExtResource( 6 )]
-position = Vector2( 7.23998e-06, 2 )
+[node name="part_hardpoint" type="Node2D" parent="player_ship"]
 z_index = -1
+script = ExtResource( 6 )
+Parent = NodePath("../..")
+StartingWeapon = ExtResource( 9 )
+
+[node name="part_hardpoint2" type="Node2D" parent="player_ship"]
+position = Vector2( -10, -9.99996 )
+z_index = -1
+script = ExtResource( 6 )
+Parent = NodePath("../..")
+
+[node name="part_hardpoint3" type="Node2D" parent="player_ship"]
+position = Vector2( 9.99996, -10 )
+z_index = -1
+script = ExtResource( 6 )
 Parent = NodePath("../..")
 
 [node name="part_dmghandler" type="Node2D" parent="."]

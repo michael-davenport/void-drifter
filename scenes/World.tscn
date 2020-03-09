@@ -88,7 +88,7 @@ script = ExtResource( 19 )
 Enabled = true
 PlayerPath = NodePath("../PlyShip")
 AICPath = NodePath("../gp_AIController")
-BaddieScene = [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 21 ), ExtResource( 21 ), ExtResource( 21 ), ExtResource( 25 ), ExtResource( 25 ), ExtResource( 6 ), ExtResource( 26 ) ]
+BaddieScene = [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 21 ), ExtResource( 21 ), ExtResource( 21 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 6 ), ExtResource( 26 ) ]
 StartingEnemiesPerWave = 10
 
 [node name="gp_starSpawner" type="Node2D" parent="."]

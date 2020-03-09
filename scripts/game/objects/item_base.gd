@@ -1,6 +1,8 @@
 extends RigidBody2D
 
-export(data.ITEM_TYPE) var Type
+class_name item_base
+
+export(int) var Type
 export(Array, NodePath) var SoundPaths
 
 func _ready() -> void:
@@ -13,7 +15,8 @@ func on_hit(body):
 		if Type == data.ITEM_TYPE.mineral:
 			body._mineralbay += 1
 		else:
-			body._inventory.push_back(Type)
+			#body._inventory.push_back(Type)
+			body.add_inventory(Type)
 		if SoundPaths.size() > 0:
 			get_node(SoundPaths[randi() % SoundPaths.size()]).play()
 		queue_free()
