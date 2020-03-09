@@ -95,7 +95,6 @@ func respawn():
 		_inventory = []
 		_inventory.push_back(1)
 		_inventory_pointer = 0
-		use_item()
 		_dmg._health = _dmg.Health
 		visible = true
 		_alive = true
