@@ -38,7 +38,8 @@ Parent = NodePath("../..")
 EffectsParent = NodePath("../part_thrust/AnimatedSprite")
 
 [node name="part_gun" parent="enemy_fighter_a" instance=ExtResource( 3 )]
-position = Vector2( 0, -10 )
+position = Vector2( 3.8147e-06, -9 )
+z_index = -1
 Parent = NodePath("../..")
 
 [node name="dmgfx" parent="enemy_fighter_a" instance=ExtResource( 7 )]

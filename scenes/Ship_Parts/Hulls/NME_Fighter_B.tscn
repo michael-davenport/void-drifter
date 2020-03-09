@@ -10,7 +10,7 @@
 [ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_b.png" type="Texture" id=8]
 [ext_resource path="res://scenes/FX/dmgfx.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 17.0294
 
 [node name="NME_Fighter_B" type="RigidBody2D"]
@@ -41,11 +41,13 @@ z_index = -1
 Parent = NodePath("../..")
 
 [node name="part_gun" parent="enemy_fighter_b" instance=ExtResource( 3 )]
-position = Vector2( -7, -10 )
+position = Vector2( -6.5, -8 )
+z_index = -1
 Parent = NodePath("../..")
 
 [node name="part_gun2" parent="enemy_fighter_b" instance=ExtResource( 3 )]
-position = Vector2( 7, -10 )
+position = Vector2( 6.5, -8 )
+z_index = -1
 Parent = NodePath("../..")
 
 [node name="dmgfx" parent="enemy_fighter_b" instance=ExtResource( 9 )]
@@ -63,7 +65,7 @@ ShieldEmitter = NodePath("../part_shield")
 
 [node name="part_shield" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 script = ExtResource( 7 )
 MaxHP = 4.0
 DownTime = 4.0

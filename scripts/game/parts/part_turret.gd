@@ -26,6 +26,8 @@ func _ready() -> void:
 	
 	
 func _physics_process(delta: float) -> void:
+	if not is_instance_valid(_parent):
+		queue_free()
 	var _rotoff = PI / 2
 	var _maxrot = MaxRotationSpeed*delta
 	var _rot = _barrel.get_angle_to(_parent.TarPos) + _rotoff

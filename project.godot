@@ -140,6 +140,11 @@ _global_script_classes=[ {
 "path": "res://scripts/game/parts/part_turret.gd"
 }, {
 "base": "Node2D",
+"class": "part_weapon",
+"language": "GDScript",
+"path": "res://scripts/game/parts/part_weapon.gd"
+}, {
+"base": "Node2D",
 "class": "target_arrow",
 "language": "GDScript",
 "path": "res://scripts/game/objects/arrow.gd"
@@ -171,6 +176,7 @@ _global_script_class_icons={
 "part_gun": "",
 "part_shield": "",
 "part_turret": "",
+"part_weapon": "",
 "target_arrow": ""
 }
 

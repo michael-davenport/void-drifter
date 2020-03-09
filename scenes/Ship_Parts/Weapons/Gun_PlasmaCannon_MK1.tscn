@@ -22,7 +22,8 @@ animations = [ {
 [node name="part_gun" type="Node2D"]
 script = ExtResource( 1 )
 BulletScene = ExtResource( 2 )
-MuzzleSprite = NodePath("AnimatedSprite")
+MuzzleSprite = NodePath("Sprite/AnimatedSprite")
+MuzzleNode = NodePath("Sprite/Muzzle")
 MuzVelocity = 450.0
 Spread = 0.049
 SoundNodes = [ NodePath("AudioStreamPlayer2D") ]
@@ -31,15 +32,18 @@ RechargeRate = 1.0
 FireRate = 1.0
 MaxRange = 450
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.4972, -3.87819 )
-frames = SubResource( 1 )
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 max_distance = 800.0
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 4.17651 )
+position = Vector2( 0, -1.0317 )
 texture = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
+position = Vector2( -0.4972, -8.0547 )
+frames = SubResource( 1 )
+
+[node name="Muzzle" type="Node2D" parent="Sprite"]
+position = Vector2( 0, -5.63481 )

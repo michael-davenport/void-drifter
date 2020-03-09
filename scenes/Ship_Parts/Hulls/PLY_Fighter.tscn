@@ -22,7 +22,7 @@ angular_damp = 30.0
 script = ExtResource( 3 )
 DamageHandler = NodePath("part_dmghandler")
 EnginePaths = [ NodePath("player_ship/part_thrust_l"), NodePath("player_ship/part_thrust_r") ]
-WeaponPaths = [ NodePath("player_ship/part_gun_l"), NodePath("player_ship/part_gun_r") ]
+WeaponPaths = [ NodePath("player_ship/part_gun") ]
 TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 7 )
@@ -44,12 +44,9 @@ z_index = -1
 Parent = NodePath("../..")
 EffectsParent = NodePath("../part_thrust_l/engine_flare")
 
-[node name="part_gun_l" parent="player_ship" instance=ExtResource( 6 )]
-position = Vector2( -10, -12 )
-Parent = NodePath("../..")
-
-[node name="part_gun_r" parent="player_ship" instance=ExtResource( 6 )]
-position = Vector2( 10, -12 )
+[node name="part_gun" parent="player_ship" instance=ExtResource( 6 )]
+position = Vector2( 7.23998e-06, 2 )
+z_index = -1
 Parent = NodePath("../..")
 
 [node name="part_dmghandler" type="Node2D" parent="."]
@@ -73,7 +70,3 @@ texture = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -8, 0, -8, 6, -4, 14, 4, 16, 20, 12, 20, 8, 10, 0, 20, -8, 20, -12, 4, -16, -4, -14, -8, -6 )
-
-[editable path="player_ship/part_gun_l"]
-
-[editable path="player_ship/part_gun_r"]

@@ -20,6 +20,7 @@ animations = [ {
 script = ExtResource( 5 )
 BulletScene = ExtResource( 7 )
 MuzzleSprite = NodePath("muzzle")
+MuzzleNode = NodePath("Muzzle")
 MuzzleSpriteKillFrame = 3
 MuzVelocity = 1200.0
 Spread = 0.196
@@ -40,3 +41,6 @@ pitch_scale = 2.96
 script = ExtResource( 6 )
 MinPitch = 2.5
 MaxPitch = 3.0
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2( 0, -1 )

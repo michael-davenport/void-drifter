@@ -5,6 +5,7 @@ class_name part_gun
 export(NodePath) var Parent #This is either a ship or a turret base
 export(PackedScene) var BulletScene
 export(NodePath) var MuzzleSprite
+export(NodePath) var MuzzleNode
 export(int) var MuzzleSpriteKillFrame = 5
 export(float) var MuzVelocity = 100.0
 export(float) var Spread = 0.0
@@ -23,12 +24,16 @@ var _retry: = 0
 
 onready var _parent = get_node(Parent)
 onready var _sprite = get_node(MuzzleSprite)
+onready var _muzzle = get_node(MuzzleNode)
 
 func _ready() -> void:
 	if not _parent:
 		print("ERROR: " + str(self) + " is unable to find its parent!")
 		queue_free()
 	if not _sprite: print("WARNING: " + str(self) + " does not have a muzzle vfx sprite assigned")
+	if not _muzzle:
+		print("ERROR: " + str(self) + " does not have a muzzle node attached")
+		queue_free()
 	
 	if _parent:
 		if _parent is ShipObj:
@@ -63,7 +68,7 @@ func fire() -> void:
 		var blap = BulletScene.instance()
 		var fore = Vector2(1,0).rotated(global_rotation - PI/2)
 		get_tree().get_root().call_deferred("add_child",blap)
-		blap.global_position = global_position
+		blap.global_position = _muzzle.global_position
 		blap.global_rotation = global_rotation
 		if _bulletparent:
 			fore = fore.rotated((randf() - randf()) * Spread)

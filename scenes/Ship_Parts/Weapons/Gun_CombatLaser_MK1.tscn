@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/game/parts/part_gun.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Bullets/B_CombatLaser_Mk1.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://raw/muzzle-laser/sprite_1.png" type="Texture" id=7]
 [ext_resource path="res://raw/muzzle-laser/sprite_3.png" type="Texture" id=8]
 [ext_resource path="res://sound/wepon/blue-4.wav" type="AudioStream" id=9]
+[ext_resource path="res://textures/Ship_Parts/Weapons/Gun_CombatLaser_Mk1.png" type="Texture" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -21,7 +22,8 @@ animations = [ {
 [node name="part_gun" type="Node2D"]
 script = ExtResource( 1 )
 BulletScene = ExtResource( 2 )
-MuzzleSprite = NodePath("AnimatedSprite")
+MuzzleSprite = NodePath("Texture/AnimatedSprite")
+MuzzleNode = NodePath("Texture/Muzzle")
 MuzVelocity = 900.0
 Spread = 0.098
 SoundNodes = [ NodePath("AudioStreamPlayer2D") ]
@@ -30,11 +32,18 @@ RechargeRate = 7.0
 FireRate = 0.17
 MaxRange = 600
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.4972, -3.87819 )
-frames = SubResource( 1 )
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
 max_distance = 800.0
 script = ExtResource( 3 )
+
+[node name="Texture" type="Sprite" parent="."]
+position = Vector2( 0, -3 )
+texture = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Texture"]
+position = Vector2( -0.5, -7.5 )
+frames = SubResource( 1 )
+
+[node name="Muzzle" type="Node2D" parent="Texture"]
+position = Vector2( 0, -5 )

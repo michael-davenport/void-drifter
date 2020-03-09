@@ -34,6 +34,7 @@ script = ExtResource( 2 )
 Parent = NodePath("..")
 BulletScene = ExtResource( 5 )
 MuzzleSprite = NodePath("spurt")
+MuzzleNode = NodePath("Muzzle")
 MuzVelocity = 500.0
 SoundNodes = [ NodePath("../AudioStreamPlayer2D") ]
 MaxAmmo = 1
@@ -47,6 +48,9 @@ texture = ExtResource( 4 )
 [node name="spurt" type="AnimatedSprite" parent="BarrelAnchor"]
 position = Vector2( -0.46167, -9.31039 )
 frames = SubResource( 1 )
+
+[node name="Muzzle" type="Node2D" parent="BarrelAnchor"]
+position = Vector2( 0, -6.77121 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
