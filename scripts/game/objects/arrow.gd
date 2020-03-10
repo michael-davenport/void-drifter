@@ -29,12 +29,21 @@ func _process(_delta: float) -> void:
 	if not validate():
 		deregister()
 		return
+		
+	var fademax = _max
+	if _target is ShipObj:
+		fademax += _target.PassiveDetectionFactor
+		spr.scale = Vector2(1,1) * _target.ArrowSize
 	var dir = _anchor.global_position.direction_to(_target.global_position)
 	var pos = _anchor.global_position + (dir * (util.OffscreenMin * ScreenRatio))
 	var dst = _anchor.global_position.distance_to(_target.global_position)
-	global_position = pos
+	var threat = pos
+	if _target is ShipObj:
+		threat += dir * clamp((dst - _target.PassiveDetectionFactor) * ScreenRatio,util.OffscreenMin * (ScreenRatio/-2),700)
+	global_position = threat
 	rotate(get_angle_to(_target.global_position))
-	spr.self_modulate.a = -(log(dst/_max)/2.718)
+	if not _target is object_gate:
+		spr.self_modulate.a = -(log(dst/fademax)/2.718)
 	
 	if dbg:
 		dbg.rotation = -rotation - PI / 2

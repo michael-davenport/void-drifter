@@ -8,6 +8,9 @@ var _alive: = true
 var _inventory: = []
 var _inventory_pointer: = 0
 var _selected_hardpoint: = 0
+var tbox = preload("res://scenes/Objects/target-box.tscn")
+var _target_indicator
+var _target
 
 func _process(_delta: float) -> void:
 	if _alive:
@@ -50,8 +53,31 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("hardpoint_unmount"):
 			_wep[_selected_hardpoint].remove_weapon()
 		
+		if Input.is_action_just_pressed("target-boresight"):
+			target_boresight()
+		
 	if Input.is_action_just_pressed("respawn"):
 		respawn()
+	
+	if is_instance_valid(_target_indicator):
+		if is_instance_valid(_target_indicator.get_parent()):
+			if _target_indicator.get_parent() is RigidBody2D:
+				_target = _target_indicator.get_parent()
+				if is_instance_valid(_target):
+					if _target._iff == 1:
+						_target_indicator.modulate = Color(1,0,0)
+			else:
+				_target = null
+			if _target_indicator.get_parent() == self:
+				_target = null
+				_target_indicator.queue_free()
+				_target_indicator = null
+		else:
+			_target = null
+			_target_indicator.queue_free()
+			_target_indicator = null
+	else:
+		_target = null
 
 func on_death():
 	visible = false
@@ -84,7 +110,6 @@ func use_item():
 			data.call(code,self,data.ITEM_DICT[item].UseParams)
 
 func respawn():
-	print("pen island")
 	if not _alive:
 		randomize()
 		var pos = Vector2((randf()-randf()) * SensorStrength, (randf()-randf()) * SensorStrength)
@@ -98,3 +123,10 @@ func respawn():
 		_dmg._health = _dmg.Health
 		visible = true
 		_alive = true
+
+func target_boresight():
+	var pos = get_global_mouse_position()
+	if _target_indicator:
+		_target_indicator.queue_free()
+	_target_indicator = util.scn_spawn(pos,0,tbox)
+	

@@ -25,6 +25,8 @@ EnginePaths = [ NodePath("enemy_fighter_b/RedThruster"), NodePath("enemy_fighter
 WeaponPaths = [ NodePath("enemy_fighter_b/part_gun"), NodePath("enemy_fighter_b/part_gun2") ]
 TorqueForce = 15000.0
 Explod = ExtResource( 6 )
+PassiveDetectionFactor = 1750.0
+ArrowSize = 1.15
 Loot = [ 1, 1, 2, 2 ]
 ChanceToDrop = 0.258
 

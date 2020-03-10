@@ -27,6 +27,7 @@ WeaponPaths = [ NodePath("player_ship/part_hardpoint"), NodePath("player_ship/pa
 TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 7 )
+DefaultIFF = 0
 
 [node name="player_ship" type="Sprite" parent="."]
 position = Vector2( 8, 0 )

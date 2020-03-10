@@ -26,6 +26,8 @@ TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 6 )
 SensorStrength = 2000.0
+PassiveDetectionFactor = 770.0
+ArrowSize = 0.85
 Loot = [ 2, 2, 1 ]
 ChanceToDrop = 0.227
 

@@ -11,6 +11,9 @@ export(float) var TorqueForce = PI*mass
 export(float) var MaxAngularVelocity = PI/16
 export(PackedScene) var Explod
 export(float) var SensorStrength = 7000
+export(float) var PassiveDetectionFactor = 1000 #This is a flat number added to OTHER ships tracking THIS ship - consider things like ship size, IR signature, etc
+export(float) var ArrowSize = 1.0
+export(int) var DefaultIFF = 1
 var InputVector : Vector2
 var Thrust : Vector2
 var Forward: Vector2
@@ -29,6 +32,7 @@ var _prevang: = 0.0
 var _indicator
 var _mineralbay: = 0
 var marked_for_death: = false
+var _iff: = 0
 
 var _maxhp
 
@@ -45,6 +49,8 @@ func _ready() -> void:
 		for x in EnginePaths: _eng.push_back(get_node(x))
 	if WeaponPaths.size() > 0:
 		for x in WeaponPaths: _wep.push_back(get_node(x))
+	if DefaultIFF:
+		_iff = DefaultIFF
 	return
 
 func _physics_process(delta: float) -> void:

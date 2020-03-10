@@ -21,6 +21,8 @@ EnginePaths = [ NodePath("enemy_frigate_a/RedThruster"), NodePath("enemy_frigate
 WeaponPaths = [ NodePath("enemy_frigate_a/HeavyPlasma"), NodePath("enemy_frigate_a/Turret"), NodePath("enemy_frigate_a/Turret2"), NodePath("enemy_frigate_a/Turret3") ]
 TorqueForce = 450000.0
 Explod = ExtResource( 8 )
+PassiveDetectionFactor = 6000.0
+ArrowSize = 3.0
 Loot = [ 2, 2, 2, 1, 1, 0, 0, 0, 0 ]
 ChanceToDrop = 1.0
 
