@@ -23,7 +23,7 @@ func _ready() -> void:
 	return
 
 func _physics_process(_delta: float) -> void:
-	if not _parent or not _effect:
+	if not is_instance_valid(_parent) or not _effect:
 		print(
 			"ENGINE MISSING CRITICAL COMPONENTS:\n" +
 			"SELF: " + str(self) + "\n" + 

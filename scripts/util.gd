@@ -43,6 +43,13 @@ func scn_spawn(point : Vector2, rot : float, type : PackedScene):
 	_scn.global_rotation = rot
 	return _scn
 
+func scn_spawn_parented(point : Vector2, rot : float, type : PackedScene, parent : Node2D):
+	var _scn = type.instance()
+	parent.add_child(_scn)
+	_scn.global_position = point
+	_scn.global_rotation = rot
+	return _scn
+
 func register_target(anchor, target, color : Color):
 	var arrow = scn_spawn(anchor.global_position,0,util.ArrowScene) as target_arrow
 	arrow._anchor = anchor

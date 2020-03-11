@@ -9,6 +9,7 @@ var _inventory: = []
 var _inventory_pointer: = 0
 var _selected_hardpoint: = 0
 var tbox = preload("res://scenes/Objects/target-box.tscn")
+var tscan = preload("res://scenes/Objects/boresight-scan.tscn")
 var _target_indicator
 var _target
 
@@ -56,6 +57,8 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("target-boresight"):
 			target_boresight()
 		
+		update_tbox()
+		
 	if Input.is_action_just_pressed("respawn"):
 		respawn()
 	
@@ -66,6 +69,7 @@ func _process(_delta: float) -> void:
 				if is_instance_valid(_target):
 					if _target._iff == 1:
 						_target_indicator.modulate = Color(1,0,0)
+					_target_indicator.scale = Vector2(1,1) * clamp(_target.ArrowSize,1,5)
 			else:
 				_target = null
 			if _target_indicator.get_parent() == self:
@@ -84,6 +88,7 @@ func on_death():
 	_alive = false
 	InputVector = Vector2.ZERO
 	util.fx_spawn(global_position,rotation,Vector2(2,2),Explod)
+	reset_target()
 
 func add_inventory(type : int):
 	_inventory.push_back(type)
@@ -121,12 +126,49 @@ func respawn():
 		_inventory.push_back(1)
 		_inventory_pointer = 0
 		_dmg._health = _dmg.Health
+		reset_target()
 		visible = true
 		_alive = true
 
 func target_boresight():
-	var pos = get_global_mouse_position()
-	if _target_indicator:
+#	var pos = get_global_mouse_position()
+#	if _target_indicator:
+#		_target_indicator.queue_free()
+#	_target_indicator = util.scn_spawn(pos,0,tbox)
+#	pass
+	var scan = util.scn_spawn(get_global_mouse_position(),0,tscan)
+	yield(get_tree().create_timer(0.1),"timeout")
+	find_target(scan)
+
+func find_target(scanner : Area2D):
+	reset_target()
+	var list = scanner.get_overlapping_bodies()
+	if list.find(self): list.erase(self)
+	if list.size() > 0:
+		for x in list:
+			if x is ShipObj:
+				_target = x
+				_target_indicator = util.scn_spawn_parented(_target.global_position,0,tbox,_target)
+				break
+
+func update_tbox():
+	if is_instance_valid(_target_indicator):
+		if is_instance_valid(_target):
+			_target_indicator.rotation = -_target.rotation
+			if is_instance_valid(_target_indicator.tli):
+				#tgt.global_position + ((tgt.linear_velocity - ship.linear_velocity) * (dst / ship._wep[0].MuzVelocity))
+				var tli = _target_indicator.tli
+				var dst = global_position.distance_to(_target.global_position)
+				var pos = Vector2.ZERO
+				if is_instance_valid(_wep[_selected_hardpoint]._weapon):
+					pos = (_target.linear_velocity - linear_velocity) * (dst / _wep[_selected_hardpoint]._weapon.MuzVelocity)
+					pos = pos/_target_indicator.scale.x
+				tli.position = pos
+		else:
+			reset_target()
+
+func reset_target():
+	if is_instance_valid(_target_indicator):
 		_target_indicator.queue_free()
-	_target_indicator = util.scn_spawn(pos,0,tbox)
-	
+		_target_indicator = null
+	_target = null

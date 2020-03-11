@@ -1,6 +1,6 @@
 extends Area2D
 
-export(float) var ScanRadius = 500.0
+export(float) var ScanRadius = 75.0
 
 onready var spurt = $target_box
 onready var scan = $scan
@@ -9,6 +9,7 @@ var _target : ShipObj
 
 func _ready() -> void:
 	scan.shape.radius = ScanRadius
+	pass
 
 func _process(delta: float) -> void:
 	if is_instance_valid(_target):
