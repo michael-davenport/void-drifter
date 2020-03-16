@@ -20,6 +20,7 @@ var Forward: Vector2
 var TarPos: Vector2
 var TarDir: Vector2
 
+var _alive: = true
 var _dmg
 var _dmgfx
 var _dmgpart
@@ -54,6 +55,7 @@ func _ready() -> void:
 	return
 
 func _physics_process(delta: float) -> void:
+	if not _alive or marked_for_death: return
 	#Turning
 	_torque = clamp(get_angle_to(TarPos),-MaxAngularVelocity,MaxAngularVelocity)
 	apply_torque_impulse(_torque * TorqueForce * delta)
@@ -80,10 +82,13 @@ func _physics_process(delta: float) -> void:
 
 func on_death():
 	if _indicator: _indicator.queue_free()
+	_alive = false
 
 func find_maxrange():
-	for x in _weprange:
-		if x < _maxrange: _maxrange = x
+	for x in _wep:
+		if is_instance_valid(x._weapon):
+			_maxrange = x._weapon.MaxRange
+			break
 
 func die_clean():
 	for x in _wep:
@@ -92,3 +97,6 @@ func die_clean():
 		x.queue_free()
 	_dmg.queue_free()
 	queue_free()
+
+func add_inventory(type : int): pass
+func remove_inventory(type : int): pass

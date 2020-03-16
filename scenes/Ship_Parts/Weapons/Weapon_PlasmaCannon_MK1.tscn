@@ -1,0 +1,50 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/game/intangible/audiostreamplayer2d_randomized.gd" type="Script" id=1]
+[ext_resource path="res://sound/wepon/plasma-2.wav" type="AudioStream" id=2]
+[ext_resource path="res://raw/muzzle_purp/muzzle_purp_3.png" type="Texture" id=3]
+[ext_resource path="res://raw/muzzle_purp/muzzle_purp_4.png" type="Texture" id=4]
+[ext_resource path="res://raw/muzzle_purp/muzzle_purp_1.png" type="Texture" id=5]
+[ext_resource path="res://raw/muzzle_purp/muzzle_purp_0.png" type="Texture" id=6]
+[ext_resource path="res://raw/muzzle_purp/muzzle_purp_2.png" type="Texture" id=7]
+[ext_resource path="res://scripts/game/parts/part_weapon.gd" type="Script" id=8]
+[ext_resource path="res://textures/Ship_Parts/Weapons/Gun_PlasmaCannon_MK1.png" type="Texture" id=9]
+[ext_resource path="res://scenes/Bullets/B_PlasmaCannon_MK1.tscn" type="PackedScene" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 4 ), null ],
+"loop": false,
+"name": "default",
+"speed": 16.0
+} ]
+
+[node name="part_weapon" type="Node2D"]
+script = ExtResource( 8 )
+BulletScene = ExtResource( 10 )
+ItemType = 3
+MuzzleSprite = NodePath("AnimatedSprite")
+MuzzleNode = NodePath("Node2D")
+AudioPlayer = NodePath("asp2d_random")
+MuzVelocity = 600.0
+Spread = 0.196
+MaxAmmo = 1
+RechargeRate = 4.0
+FireRate = 0.001
+MaxRange = 600
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -2.05702 )
+texture = ExtResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -9.54107 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 0, -6.08353 )
+
+[node name="asp2d_random" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+script = ExtResource( 1 )

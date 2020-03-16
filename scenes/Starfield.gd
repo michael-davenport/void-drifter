@@ -1,10 +1,11 @@
 extends Node2D
 
 export(float) var ScrollFactor = 0.05
-export(NodePath) var Player
-
-onready var _player = get_node(Player)
+var player
 
 func _process(delta: float) -> void:
-	global_position = _player.global_position * ScrollFactor
+	if is_instance_valid(player):
+		global_position = player.global_position * ScrollFactor
+	else:
+		player = get_node("/root/World/Player")
 	return

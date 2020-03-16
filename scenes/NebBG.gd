@@ -1,17 +1,19 @@
-extends TextureRect
+extends Node2D
+
+class_name vfx_nebula
 
 export(float) var scroll_divisor = 320
-export(NodePath) var Player
 export(Vector2) var Offset = Vector2(-1024,-1024)
 
-var _player
+onready var neb = $TextureRect
 
-func _ready() -> void:
-	_player = get_node(Player)
-	return
+var player
 
 func _process(_delta: float) -> void:
-	rect_global_position = _player.global_position + Offset
-	self.material.set_shader_param("g_offset_x" , _player.global_position.x / scroll_divisor)
-	self.material.set_shader_param("g_offset_y" , _player.global_position.y / scroll_divisor)
+	if is_instance_valid(player):
+		neb.rect_global_position = player.global_position + Offset
+		neb.material.set_shader_param("g_offset_x" , player.global_position.x / scroll_divisor)
+		neb.material.set_shader_param("g_offset_y" , player.global_position.y / scroll_divisor)
+	else:
+		player = get_tree().get_current_scene().find_node("Player")
 	return

@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name part_Thruster
+class_name part_thruster_old
 
 export(NodePath) var Parent
 export(NodePath) var EffectsParent
@@ -23,7 +23,7 @@ func _ready() -> void:
 	return
 
 func _physics_process(_delta: float) -> void:
-	if not is_instance_valid(_parent) or not _effect:
+	if not is_instance_valid(_parent) or not is_instance_valid(_effect):
 		print(
 			"ENGINE MISSING CRITICAL COMPONENTS:\n" +
 			"SELF: " + str(self) + "\n" + 

@@ -26,12 +26,13 @@ var BulletParent #This needs to get set when attached to a hardpoint - this shou
 
 func _ready() -> void:
 	if MuzzleSprite:
-		_muzzlesprite = get_node(MuzzleSprite)
+		_muzzlesprite = get_node(MuzzleSprite) as AnimatedSprite
 		_muzzlesprite.connect("animation_finished",self,"reset_muzzlesprite")
 		_muzzlesprite.emit_signal("animation_finished")
 	if MuzzleNode: _muzzlenode = get_node(MuzzleNode)
 	if AudioPlayer: _audioplayer = get_node(AudioPlayer)
 	_ammo = MaxAmmo
+	pass_range()
 	return
 
 func _process(delta : float) -> void:

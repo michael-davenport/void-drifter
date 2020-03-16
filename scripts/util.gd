@@ -9,6 +9,9 @@ var CurAIDirector = null
 
 var ArrowScene = preload("res://scenes/Objects/arrow.tscn")
 
+onready var root = get_node("/root")
+onready var world = get_node("/root/World")
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	return
@@ -36,9 +39,8 @@ func select_random(arr : Array):
 	return arr[randi() % arr.size()]
 
 func scn_spawn(point : Vector2, rot : float, type : PackedScene):
-	var _root = get_tree().get_current_scene()
 	var _scn = type.instance()
-	_root.call_deferred("add_child",_scn)
+	world.add_child(_scn)
 	_scn.global_position = point
 	_scn.global_rotation = rot
 	return _scn
@@ -57,3 +59,11 @@ func register_target(anchor, target, color : Color):
 	arrow.z_index = 10
 	arrow.modulate = color
 	return arrow
+
+func get_all_children(node : Node2D, retarray : Array):
+	var n = node.get_children()
+	if n.size() > 0:
+		for x in n:
+			retarray.push_back(x)
+			get_all_children(x, retarray)
+	

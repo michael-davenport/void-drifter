@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/game/objects/items/weapon_pickup.gd" type="Script" id=1]
+[ext_resource path="res://textures/Ship_Parts/Weapons/Gun_PlasmaCannon_MK1.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 9.31017
+height = 4.25499
+
+[node name="item_weapon" type="RigidBody2D"]
+script = ExtResource( 1 )
+Type = 3
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.535847 )
+shape = SubResource( 1 )

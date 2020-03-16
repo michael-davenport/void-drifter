@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/black_bg.gd" type="Script" id=1]
+[ext_resource path="res://textures/Other/big_and_black_box.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform float scroll_speed_x;
+uniform float scroll_speed_y;
+uniform float g_offset_x;
+uniform float g_offset_y;
+
+void fragment()
+{
+	vec2 shifteduv = UV;
+	shifteduv.x += g_offset_x;
+	shifteduv.y += g_offset_y;
+	vec4 color = texture(TEXTURE, shifteduv);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+render_priority = -100
+shader = SubResource( 1 )
+shader_param/scroll_speed_x = null
+shader_param/scroll_speed_y = null
+shader_param/g_offset_x = null
+shader_param/g_offset_y = null
+
+[node name="black_bg" type="Sprite"]
+modulate = Color( 0, 0, 0, 1 )
+material = SubResource( 2 )
+position = Vector2( 0, 5.71997 )
+z_index = -10
+texture = ExtResource( 2 )
+script = ExtResource( 1 )

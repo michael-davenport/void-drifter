@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scripts/obj_thruster.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/parts/part_thruster.gd" type="Script" id=1]
 [ext_resource path="res://raw/engine flare/sprite_1.png" type="Texture" id=2]
 [ext_resource path="res://raw/engine flare/sprite_0.png" type="Texture" id=3]
 [ext_resource path="res://raw/ship_parts/engines/ply_engine.png" type="Texture" id=4]
@@ -16,9 +16,8 @@ animations = [ {
 
 [node name="PlyThrust" type="Node2D"]
 script = ExtResource( 1 )
-EffectsParent = NodePath("engine_flare")
-Audio = NodePath("rumble")
-Force = Vector2( 50, 25 )
+ThrustForce = Vector2( 2500, 1000 )
+Torque = 80000.0
 
 [node name="ply_engine" type="Sprite" parent="."]
 texture = ExtResource( 4 )
@@ -26,7 +25,10 @@ texture = ExtResource( 4 )
 [node name="engine_flare" type="AnimatedSprite" parent="."]
 position = Vector2( -0.5, 4.25 )
 frames = SubResource( 1 )
+frame = 1
+playing = true
 
 [node name="rumble" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 volume_db = -15.0
+autoplay = true

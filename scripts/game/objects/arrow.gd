@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 	if not validate():
 		deregister()
 		return
+	
+	if not is_instance_valid(self): return
 		
 	var fademax = _max
 	if _target is ShipObj:

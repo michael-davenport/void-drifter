@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/obj_enemyShip.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/parts/part_dmghandler.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Ship_Parts/Weapons/Gun_CombatLaser_MK1_bl2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Ship_Parts/Weapons/AI Weapons/Weapon_AI_GreenLaser.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Ship_Parts/Engines/RedThruster.tscn" type="PackedScene" id=4]
 [ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_a.png" type="Texture" id=5]
 [ext_resource path="res://scenes/FX/explod.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/FX/dmgfx.tscn" type="PackedScene" id=7]
 [ext_resource path="res://textures/Ship_Parts/Hulls/enemy_fighter_a_dmg.png" type="Texture" id=8]
+[ext_resource path="res://scripts/game/parts/part_hardpoint.gd" type="Script" id=9]
 
 [node name="NME_Fighter_A" type="RigidBody2D"]
 collision_layer = 4
@@ -21,7 +22,7 @@ DamageHandler = NodePath("part_dmghandler")
 DamageGraphic = NodePath("enemy_fighter_a/dmgfx")
 DamageThreshold = 0.65
 EnginePaths = [ NodePath("enemy_fighter_a/part_thrust") ]
-WeaponPaths = [ NodePath("enemy_fighter_a/part_gun") ]
+WeaponPaths = [ NodePath("enemy_fighter_a/part_hardpoint") ]
 TorqueForce = 150000.0
 MaxAngularVelocity = 3.142
 Explod = ExtResource( 6 )
@@ -41,10 +42,11 @@ z_index = -1
 Parent = NodePath("../..")
 EffectsParent = NodePath("../part_thrust/AnimatedSprite")
 
-[node name="part_gun" parent="enemy_fighter_a" instance=ExtResource( 3 )]
-position = Vector2( 3.8147e-06, -9 )
-z_index = -1
+[node name="part_hardpoint" type="Node2D" parent="enemy_fighter_a"]
+position = Vector2( -3.25799e-05, -9 )
+script = ExtResource( 9 )
 Parent = NodePath("../..")
+StartingWeapon = ExtResource( 3 )
 
 [node name="dmgfx" parent="enemy_fighter_a" instance=ExtResource( 7 )]
 visible = false

@@ -1,11 +1,10 @@
 extends Sprite
 
-var _fuck
+var player
 
-func _ready() -> void:
-	_fuck = get_tree().get_current_scene().find_node("PlayerCam")
 
 func _process(delta: float) -> void:
-	if _fuck:
-		global_position = _fuck.global_position
-	else: print("need fuck")
+	if is_instance_valid(player):
+		global_position = player.global_position
+	else:
+		player = get_node("/root/").find_node("Player")

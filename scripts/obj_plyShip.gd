@@ -4,7 +4,6 @@ class_name Playership
 
 export(PackedScene) var dontask
 
-var _alive: = true
 var _inventory: = []
 var _inventory_pointer: = 0
 var _selected_hardpoint: = 0
@@ -64,7 +63,7 @@ func _process(_delta: float) -> void:
 	
 	if is_instance_valid(_target_indicator):
 		if is_instance_valid(_target_indicator.get_parent()):
-			if _target_indicator.get_parent() is RigidBody2D:
+			if _target_indicator.get_parent() is ShipObj:
 				_target = _target_indicator.get_parent()
 				if is_instance_valid(_target):
 					if _target._iff == 1:
@@ -125,10 +124,14 @@ func respawn():
 		_inventory = []
 		_inventory.push_back(1)
 		_inventory_pointer = 0
+		_selected_hardpoint = 0
 		_dmg._health = _dmg.Health
 		reset_target()
 		visible = true
 		_alive = true
+		yield(get_tree().create_timer(0.1),"timeout")
+		use_item()
+		
 
 func target_boresight():
 #	var pos = get_global_mouse_position()
@@ -152,7 +155,7 @@ func find_target(scanner : Area2D):
 				break
 
 func update_tbox():
-	if is_instance_valid(_target_indicator):
+	if is_instance_valid(_target_indicator) and is_instance_valid(_target_indicator.get('tli')):
 		if is_instance_valid(_target):
 			_target_indicator.rotation = -_target.rotation
 			if is_instance_valid(_target_indicator.tli):
