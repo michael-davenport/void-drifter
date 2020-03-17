@@ -61,9 +61,26 @@ func register_target(anchor, target, color : Color):
 	return arrow
 
 func get_all_children(node : Node2D, retarray : Array):
-	var n = node.get_children()
-	if n.size() > 0:
-		for x in n:
-			retarray.push_back(x)
-			get_all_children(x, retarray)
+	if is_instance_valid(node):
+		var n = node.get_children()
+		if n.size() > 0:
+			for x in n:
+				retarray.push_back(x)
+				get_all_children(x, retarray)
+
+func find_hardpoint(ship : Node2D):
+	#Validate the ship
+	if not ship.get('parts'): return null
 	
+	#Make a reference to the hardpoints array and check it for empty slots
+	var hardpoint = ship.parts.hardpoint
+	for x in hardpoint:
+		if not is_instance_valid(x._weapon):
+			return x
+	
+	#If not, return our currently selected hardpoint and shift the pointer up
+	var ret = hardpoint[ship.parts.controller.HardPointer]
+	ship.parts.controller.HardPointer += 1
+	if ship.parts.controller.HardPointer > hardpoint.size():
+		ship.parts.controller.HardPointer = 0
+	return ret

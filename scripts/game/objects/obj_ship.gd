@@ -3,6 +3,7 @@ extends RigidBody2D
 class_name obj_ship
 
 export(float) var MaxTorque = 150000
+export(int,0,7) var MaxCargo = 3
 
 #components
 var parts = {
@@ -12,7 +13,8 @@ var parts = {
 	sensor = null,
 	dmghandler = null,
 	controller = null, #note: this gets registered after spawn unless it is part_fsm
-	cargobay = []
+	cargobay = [],
+	mineralbay = 0
 }
 
 var status = {
@@ -24,6 +26,8 @@ var status = {
 }
 
 var READY: = false
+
+onready var dmgfx = find_node("dmgfx")
 
 func _ready() -> void:
 	#Register all attached parts in the scene tree
@@ -107,7 +111,12 @@ func try_fire():
 			x.fire()
 
 func try_use(pointer : int):
-	pass
+	if parts.cargobay.size() > 0:
+		var item = parts.cargobay[pointer]
+		if data.ITEM_DICT[item].has('UseFunc'):
+			var code = data.ITEM_DICT[item].UseFunc
+			data.call(code,self,data.ITEM_DICT[item].UseParams)
+	
 
 func try_unmount(pointer : int):
 	pass
@@ -118,5 +127,9 @@ func try_respawn():
 func try_target():
 	pass
 
-func add_inventory():
-	pass
+func add_inventory(item : int):
+	if not item == data.ITEM_TYPE.mineral:
+		if not parts.cargobay.size() >= MaxCargo:
+			parts.cargobay.append(item)
+	else:
+		parts.mineralbay += 1

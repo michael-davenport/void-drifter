@@ -18,14 +18,18 @@ signal try_respawn
 signal try_target
 
 func _ready() -> void:
-	CamNode = Camera2D.new()
-	get_tree().get_current_scene().add_child(CamNode)
-	CamNode.make_current()
-	CamNode.anchor_mode = Camera2D.ANCHOR_MODE_DRAG_CENTER
-	CamNode.process_mode = Camera2D.CAMERA2D_PROCESS_IDLE
+	CamNode = util.scn_spawn(Vector2.ZERO,0,load("res://scenes/Objects/obj_viewport.tscn"))
 	if get_parent():
 		CamNode.global_position = get_parent().global_position
 		COffset = get_parent().global_position
+	#CamNode = Camera2D.new()
+	#get_tree().get_current_scene().add_child(CamNode)
+	#CamNode.make_current()
+	#CamNode.anchor_mode = Camera2D.ANCHOR_MODE_DRAG_CENTER
+	#CamNode.process_mode = Camera2D.CAMERA2D_PROCESS_IDLE
+	#if get_parent():
+	#	CamNode.global_position = get_parent().global_position
+	#	COffset = get_parent().global_position
 
 func _process(delta: float) -> void:
 	#Validate the parent and other critical properties
@@ -49,7 +53,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("select_cargo_down"):
 			if CargoPointer < Ship.parts.cargobay.size() - 1:
 				CargoPointer += 1
-		if Input.is_action_just_pressed("select_cargo_down"):
+		if Input.is_action_just_pressed("select_cargo_up"):
 			if CargoPointer > 0:
 				CargoPointer -= 1
 		if Input.is_action_just_pressed("item_use"):

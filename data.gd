@@ -15,22 +15,22 @@ enum ITEM_TYPE {
 var ITEM_DICT = [
 	{   #Mineral
 		DisplayName = "Mineral",
-		ItemScene = preload("res://scenes/Objects/mineral.tscn")
+		ItemScene = load("res://scenes/Objects/mineral.tscn")
 	},
 	{   #Gun_CombatLaser_MK1
 		DisplayName = "Combat Laser MK1",
-		ItemScene = preload("res://scenes/Objects/Items/Item_Weapon_CombatLaser_MK1.tscn"),
+		ItemScene = load("res://scenes/Objects/Items/Item_Weapon_CombatLaser_MK1.tscn"),
 		UseFunc = "equip_weapon",
 		UseParams = {
-			WeaponScene = preload("res://scenes/Ship_Parts/Weapons/Weapon_CombatLaser_MK1.tscn")
+			WeaponScene = load("res://scenes/Ship_Parts/Weapons/Weapon_CombatLaser_MK1.tscn")
 		}
 	},
 	{   #Gun_CombatLaser_MK1_bl2
 		DisplayName = "Combat Laser MK1 bl.2",
-		ItemScene = preload("res://scenes/Objects/Items/Item_Weapon_CombatLaser_MK1_bl2.tscn"),
+		ItemScene = load("res://scenes/Objects/Items/Item_Weapon_CombatLaser_MK1_bl2.tscn"),
 		UseFunc = "equip_weapon",
 		UseParams = {
-			WeaponScene = preload("res://scenes/Ship_Parts/Weapons/Weapon_CombatLaser_MK1_bl2.tscn")
+			WeaponScene = load("res://scenes/Ship_Parts/Weapons/Weapon_CombatLaser_MK1_bl2.tscn")
 		}
 	},
 	{   #Gun_PlasmaCannon_MK1
@@ -48,8 +48,8 @@ var ITEM_DICT = [
 func _ready() -> void:
 	emit_signal("data_loaded")
 
-func equip_weapon(caller : ShipObj, params = {}):
-	var hardpoint = caller.find_hardpoint()
+func equip_weapon(caller : obj_ship, params = {}):
+	var hardpoint = util.find_hardpoint(caller)
 	if is_instance_valid(hardpoint):
 		if is_instance_valid(hardpoint._weapon):
 			hardpoint.remove_weapon()

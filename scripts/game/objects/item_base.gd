@@ -11,12 +11,13 @@ func _ready() -> void:
 	connect("body_entered",self,"on_hit")
 
 func on_hit(body):
-	if body is Playership:
-		if Type == data.ITEM_TYPE.mineral:
-			body._mineralbay += 1
+	if body is obj_ship:
+		if Type > 0:
+			if body.parts.cargobay.size() <= body.MaxCargo:
+				body.add_inventory()
+				if SoundPaths.size() > 0:
+					get_node(SoundPaths[randi() % SoundPaths.size()]).play()
+				queue_free()
 		else:
-			#body._inventory.push_back(Type)
-			body.add_inventory(Type)
-		if SoundPaths.size() > 0:
-			get_node(SoundPaths[randi() % SoundPaths.size()]).play()
-		queue_free()
+			body.parts.mineralbay += 1
+			queue_free()

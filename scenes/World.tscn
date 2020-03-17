@@ -6,6 +6,7 @@
 [node name="World" type="Node2D"]
 script = ExtResource( 3 )
 PlayersceneExport = ExtResource( 6 )
-NebulaLayers = 2
+NebulaLayers = 6
 NebulaMinScroll = 4800.0
 NebulaMaxScroll = 3200.0
+NebulaMaxOpacity = 0.05
